@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
@@ -10,14 +11,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
-
 import javafx.geometry.Insets;
 
 public class SetupPage extends Application{
 
 	@Override //Override start method in Application class
 	public void start(Stage primaryStage) {
+
 		
+
 		//Declare panes/menus/menu items
 		BorderPane borderPane;//Border Pane for scene
 		GridPane grid;//Grid Pane for inputs/start button
@@ -29,10 +31,10 @@ public class SetupPage extends Application{
 		MenuItem miExit;
 		MenuItem miAbout;
 		CheckMenuItem miRandom; //Check menu items
-		
+
 		//Create a BorderPane container for scene layout
 		borderPane = new BorderPane();
-		
+
 		//Create a GridPane container for user inputs/buttons
 		grid = new GridPane();
 		grid.setPadding(new Insets(10, 10, 10, 10));
@@ -48,7 +50,7 @@ public class SetupPage extends Application{
 		grid.add(new Label("Time Limit:"), 0, 3);
 		grid.add(new TextField(), 1, 3);
 		grid.add(new Button("Start"), 1, 4);
-		
+
 		//Create Menu Bar
 		menuBar = new MenuBar();
 		//Create Menus
@@ -67,6 +69,9 @@ public class SetupPage extends Application{
 		//Add menus to menu bar
 		menuBar.getMenus().addAll(menuFile, menuOptions, menuHelp);
 
+		//Event handlers
+		miExit.setOnAction(e -> Platform.exit()); //Exit button
+		
 		//Create a scene and place it in the stage
 		Scene scene = new Scene(borderPane, 1000, 700);
 		borderPane.setTop(menuBar);
