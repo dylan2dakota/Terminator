@@ -32,6 +32,7 @@ public class SetupPage extends Application{
 		
 		//Create a BorderPane container for scene layout
 		borderPane = new BorderPane();
+		
 		//Create a GridPane container for user inputs/buttons
 		grid = new GridPane();
 		grid.setPadding(new Insets(10, 10, 10, 10));
@@ -47,6 +48,7 @@ public class SetupPage extends Application{
 		grid.add(new Label("Time Limit:"), 0, 3);
 		grid.add(new TextField(), 1, 3);
 		grid.add(new Button("Start"), 1, 4);
+		
 		//Create Menu Bar
 		menuBar = new MenuBar();
 		//Create Menus
