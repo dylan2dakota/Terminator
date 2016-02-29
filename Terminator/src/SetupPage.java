@@ -15,19 +15,25 @@ import javafx.geometry.Insets;
 
 public class SetupPage extends Application{
 
-	private BorderPane borderPane;//Border Pane for scene
-	private MenuBar menuBar;// MenuBar
-	private Menu menuFile, menuOptions, menuHelp; //Menus
-	private MenuItem miReset, miExit, miAbout; //Menu items
-	private CheckMenuItem miRandom; //Check menu items
-
 	@Override //Override start method in Application class
 	public void start(Stage primaryStage) {
+		
+		//Declare panes/menus/menu items
+		BorderPane borderPane;//Border Pane for scene
+		GridPane grid;//Grid Pane for inputs/start button
+		MenuBar menuBar;// MenuBar
+		Menu menuFile; //Menus
+		Menu menuOptions;
+		Menu menuHelp;
+		MenuItem miReset; //Menu items
+		MenuItem miExit;
+		MenuItem miAbout;
+		CheckMenuItem miRandom; //Check menu items
 		
 		//Create a BorderPane container for scene layout
 		borderPane = new BorderPane();
 		//Create a GridPane container for user inputs/buttons
-		GridPane grid = new GridPane();
+		grid = new GridPane();
 		grid.setPadding(new Insets(10, 10, 10, 10));
 		grid.setVgap(5);
 		grid.setHgap(5);
@@ -51,13 +57,14 @@ public class SetupPage extends Application{
 		miReset = new MenuItem("Reset");
 		miExit = new MenuItem("Exit");
 		miAbout = new MenuItem("About");
+		miRandom = new CheckMenuItem("Random");
 		//Add items to respective menus
 		menuFile.getItems().addAll(miReset,miExit);
 		menuOptions.getItems().addAll(miRandom);
 		menuHelp.getItems().add(miAbout);
 		//Add menus to menu bar
-		//menuBar.getMenus().addAll(menuFile, menuOptions, menuHelp);
-		
+		menuBar.getMenus().addAll(menuFile, menuOptions, menuHelp);
+
 		//Create a scene and place it in the stage
 		Scene scene = new Scene(borderPane, 1000, 700);
 		borderPane.setTop(menuBar);
