@@ -6,6 +6,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
@@ -31,6 +33,11 @@ public class SetupPage extends Application{
 		MenuItem miExit;
 		MenuItem miAbout;
 		CheckMenuItem miRandom; //Check menu items
+		
+		//create robot image on button
+		Image robo = new Image("file:/home/dakodah/Downloads/robot.resized.png");
+		Button robo1 = new Button();
+		robo1.setGraphic(new ImageView(robo));
 
 		//Create a BorderPane container for scene layout
 		borderPane = new BorderPane();
@@ -50,6 +57,10 @@ public class SetupPage extends Application{
 		grid.add(new Label("Time Limit:"), 0, 3);
 		grid.add(new TextField(), 1, 3);
 		grid.add(new Button("Start"), 1, 4);
+		
+		//create viewing of robot
+		grid.add(robo1, 70,75 );
+
 
 		//Create Menu Bar
 		menuBar = new MenuBar();
