@@ -33,12 +33,15 @@ public class SetupPage extends Application{
 
 		//Create Robot
 		Robot robot = new Robot(100,325,550);
+		
+		//Create Sensor
+		Sensor sensor = new Sensor(375,600,150,50);
 
 		//Create Pane container for Robot
 		pane = new Pane();
 		pane.setStyle("-fx-background-color: green;");
 		pane.setPrefWidth(650);
-		pane.getChildren().add(robot);
+		pane.getChildren().addAll(sensor,robot);
 		
 		//Create a BorderPane container for scene layout
 		borderPane = new BorderPane();
@@ -121,11 +124,11 @@ public class SetupPage extends Application{
 		helpLabel.setText(helpText);
 
 		// Add the label to a StackPane
-		StackPane pane = new StackPane();
-		pane.getChildren().add(helpLabel);
+		StackPane aboutPane = new StackPane();
+		aboutPane.getChildren().add(helpLabel);
 
 		// Create and display said the pane in a new stage 	
-		Scene scene = new Scene(pane, 550, 100);
+		Scene scene = new Scene(aboutPane, 550, 100);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.setTitle("Navigation Simulation Setup");
