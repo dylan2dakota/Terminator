@@ -7,32 +7,37 @@ import java.util.Random;
  */
 public class Generator {
 
-	private double[] x;
-	private double[] y;
+	private static int[] x;
+	private static int[] y;
+	public static Point[] points;
+	int density;
 
 	public Generator(){
-		int i,j;
-		//random object for generator
-		Random rn = new Random();
 		
-		//generate random points
-		for(i=0;i<100;i++){
-			x[i] = (rn.nextDouble()*999)+1;
-		}
-		for(j=0;j<100;j++){
-			y[j] = (rn.nextDouble()*700);
-		}		
-
 	}
 
 	public void finalize() throws Throwable {
 
 	}
-	public void generatePoints(){
-
+	
+	public static Point[] generatePoints(int density){
+		int i,j,k;
+		//random object for generator
+		Random rn = new Random();
+		
+		//generate random points
+		for(i=0;i<density;i++){
+			x[i] = (rn.nextInt(999))+1; //x-coordinates
+		}
+		for(j=0;j<density;j++){
+			y[j] = (rn.nextInt(700)); //y-coordinates
+		}
+		
+		for(k=0;k<density;k++){
+			points[k]= new Point(x[k],y[k]); //array of points
+		}
+		
+		return points;
 	}
-
-	public int getPointDensity(){
-		return 0;
-	}
+	
 }//end Generator

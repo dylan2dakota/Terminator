@@ -19,6 +19,16 @@ import javafx.geometry.Insets;
 
 public class SetupPage extends Application{
 
+	Integer pointDensity;
+	Integer sensorAngle;
+	Integer sensorRange;
+	Integer timeLimit;
+	TextField pointDensityInput;
+	TextField sensorAngleInput;
+	TextField sensorRangeInput;
+	TextField timeLimitInput;
+	Point[] generatedPoints;
+
 	@Override //Override start method in Application class
 	public void start(Stage primaryStage) {
 
@@ -31,18 +41,6 @@ public class SetupPage extends Application{
 		MenuItem miReset, miExit, miAbout; //Menu items
 		CheckMenuItem miRandom; //Check menu items
 
-		//Create Robot
-		Robot robot = new Robot(100,325,550);
-		
-		//Create Sensor
-		Sensor sensor = new Sensor(375,600,150,50);
-
-		//Create Pane container for Robot
-		pane = new Pane();
-		pane.setStyle("-fx-background-color: green;");
-		pane.setPrefWidth(650);
-		pane.getChildren().addAll(sensor,robot);
-		
 		//Create a BorderPane container for scene layout
 		borderPane = new BorderPane();
 
@@ -51,23 +49,67 @@ public class SetupPage extends Application{
 		grid.setPadding(new Insets(10, 10, 10, 10));
 		grid.setVgap(10);
 		grid.setHgap(5);
-		
-		//Create labels and buttons
+
+		//Create text fields and buttons
 		Label simulationLabel = new Label("Simulation"); //Label for Setup Page title
 		simulationLabel.setFont(Font.font("Times New Roman", 32));
-		grid.add(simulationLabel,0,0);
 		Label setupLabel = new Label("Setup"); //Label for Setup Page title
 		setupLabel.setFont(Font.font("Times New Roman", 32));
+		pointDensityInput = new TextField("50"); //Point density text field
+		sensorAngleInput = new TextField("50"); //Sensor angle text field
+		sensorRangeInput = new TextField("150"); //Sensor range text field
+		timeLimitInput = new TextField("5"); //Time limit text field
+		Button startButton = new Button("START"); //Start Button
+		startButton.setStyle("-fx-background-color: lightgreen;");
+		Button generateButton = new Button("GENERATE"); //Generate Button
+		generateButton.setStyle("-fx-background-color: lightblue;");
+		pointDensity = Integer.valueOf(pointDensityInput.getText());
+		sensorAngle = Integer.valueOf(sensorAngleInput.getText());
+		sensorRange = Integer.valueOf(sensorRangeInput.getText());
+		timeLimit = Integer.valueOf(timeLimitInput.getText());
+		
+
+		//Create Robot
+		Robot robot = new Robot(100,325,550);
+
+		//Create Sensor
+		Sensor sensor = new Sensor(375,600,sensorRange, sensorAngle);
+		
+		//Generate Points
+	//	generatedPoints = Generator.generatePoints(100);
+		
+		//Event handler for Generate Button
+		generateButton.setOnAction(e -> {
+			pointDensity = getPointDensity();
+			sensorAngle = getSensorAngle();
+			sensorRange = getSensorRange();
+			timeLimit = getTimeLimit();
+		});
+		
+		//Create Pane container for Robot
+		pane = new Pane();
+		pane.setStyle("-fx-background-color: green;");
+		pane.setPrefWidth(650);
+		pane.getChildren().addAll(sensor,robot);
+		/*
+		for(int i=0;i<pointDensity;i++){
+			pane.getChildren().add(generatedPoints[i]);
+		}
+		*/
+
+		//Add labels, buttons and text fields to grid
+		grid.add(simulationLabel,0,0);
 		grid.add(setupLabel,1,0);
-		grid.add(new Label("Point Density:"), 0, 1); //Point Density UI
-		grid.add(new TextField(), 1, 1);
-		grid.add(new Label("Sensor Angle:"), 0, 2); //Sensor Angle UI
-		grid.add(new TextField(), 1, 2);
-		grid.add(new Label("Sensor Range:"), 0, 3); //Sensor Range UI
-		grid.add(new TextField(), 1, 3);
-		grid.add(new Label("Time Limit:"), 0, 4); //Time Limit UI
-		grid.add(new TextField(), 1, 4);
-		grid.add(new Button("Start"), 1, 5); //Start Button
+		grid.add(new Label("Point Density:"), 0, 1);
+		grid.add(pointDensityInput, 1, 1);
+		grid.add(new Label("Sensor Angle:"), 0, 2);
+		grid.add(sensorAngleInput, 1, 2);
+		grid.add(new Label("Sensor Range:"), 0, 3);
+		grid.add(sensorRangeInput, 1, 3);
+		grid.add(new Label("Time Limit (min):"), 0, 4);
+		grid.add(timeLimitInput, 1, 4);
+		grid.add(startButton, 1, 5);
+		grid.add(generateButton,0,5);
 
 		//Create Menu Bar
 		menuBar = new MenuBar();
@@ -105,6 +147,26 @@ public class SetupPage extends Application{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
+	}
+	
+	private int getPointDensity() {
+		pointDensity = Integer.valueOf(pointDensityInput.getText());
+		return pointDensity;
+	}
+	
+	private int getSensorAngle() {
+		sensorAngle = Integer.valueOf(sensorAngleInput.getText());
+		return sensorAngle;
+	}
+	
+	private int getSensorRange() {
+		sensorRange = Integer.valueOf(sensorRangeInput.getText());
+		return sensorRange;
+	}
+	
+	private int getTimeLimit() {
+		timeLimit = Integer.valueOf(timeLimitInput.getText());
+		return timeLimit;
 	}
 
 	private void showAbout(){

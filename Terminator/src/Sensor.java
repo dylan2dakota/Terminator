@@ -8,7 +8,7 @@ public class Sensor extends Arc{
 
 	}
 
-	public Sensor(double xCenter, double yCenter, double radius, double angle){
+	public Sensor(int xCenter, int yCenter, int radius, int angle){
 		
 		setCenterX(xCenter);
 		setCenterY(yCenter);
