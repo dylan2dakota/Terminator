@@ -1,4 +1,4 @@
-package src.src;
+package src;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -30,6 +30,8 @@ public class SetupPage extends Application {
 	TextField sensorRangeInput;
 	TextField timeLimitInput;
 	Point[] generatedPoints;
+	Sensor sensor;
+	Robot robot;
 
 	@Override
 	// Override start method in Application class
@@ -73,21 +75,15 @@ public class SetupPage extends Application {
 		timeLimit = Integer.valueOf(timeLimitInput.getText());
 
 		// Create Robot
-		Robot robot = new Robot(100, 325, 550);
+		robot = new Robot(100, 325, 550);
 
 		// Create Sensor
-		Sensor sensor = new Sensor(375, 600, sensorRange, sensorAngle);
+		sensor = new Sensor(375, 600, sensorRange, sensorAngle);
 
 		// Generate Points
 		generatedPoints = Generator.generatePoints(pointDensity);
 
-		// Event handler for Generate Button
-		generateButton.setOnAction(e -> {
-			pointDensity = getPointDensity();
-			sensorAngle = getSensorAngle();
-			sensorRange = getSensorRange();
-			timeLimit = getTimeLimit();
-		});
+		
 
 		// Create Pane container for Robot
 		pane = new Pane();
@@ -97,6 +93,31 @@ public class SetupPage extends Application {
 		 pane.getChildren().add(generatedPoints[i]);
 		}
 		pane.getChildren().addAll(sensor, robot);
+		
+		
+		// Event handler for Generate Button
+				generateButton.setOnAction(e -> {
+					for(int i=0;i<pointDensity;i++){
+						 pane.getChildren().remove(generatedPoints[i]);
+					}
+					pointDensity = getPointDensity();
+					sensorAngle = getSensorAngle();
+					sensorRange = getSensorRange();
+					timeLimit = getTimeLimit();	
+					pane.getChildren().removeAll(sensor,robot);
+					
+					
+					sensor = new Sensor(375, 600, sensorRange, sensorAngle);
+					robot = new Robot(100, 325, 550);
+					generatedPoints = Generator.generatePoints(pointDensity);
+
+					pane.getChildren().addAll(sensor,robot);
+					for(int j=0;j<pointDensity;j++){
+						 pane.getChildren().add(generatedPoints[j]);
+					}
+	
+					
+				});
 
 		// Add labels, buttons and text fields to grid
 		grid.add(simulationLabel, 0, 0);

@@ -1,4 +1,4 @@
-package src.src;
+package src;
 
 import java.util.Random;
 
@@ -32,10 +32,10 @@ public class Generator {
 
 		// Generate random points
 		for (i = 0; i < density; i++) {
-			x[i] = (rn.nextInt(999)) + 1; // x-coordinates
+			x[i] = (rn.nextInt(649)) + 2; // x-coordinates
 		}
 		for (j = 0; j < density; j++) {
-			y[j] = (rn.nextInt(700)); // y-coordinates
+			y[j] = (rn.nextInt(500)); // y-coordinates
 		}
 
 		for (k = 0; k < density; k++) {
