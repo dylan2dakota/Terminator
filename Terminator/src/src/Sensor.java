@@ -1,26 +1,27 @@
-package src;
+package src.src;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 
-public class Sensor extends Arc{
+public class Sensor extends Arc {
 
-	public Sensor(){
+	public Sensor() {
 
 	}
 
-	public Sensor(int xCenter, int yCenter, int radius, int angle){
-		
+	public Sensor(int xCenter, int yCenter, int radius, int angle) {
+
 		setCenterX(xCenter);
 		setCenterY(yCenter);
 		setRadiusX(radius);
 		setRadiusY(radius);
-		setStartAngle(90-angle);
-		setLength(2*angle);
+		setStartAngle(90 - angle);
+		setLength(2 * angle);
 		setType(ArcType.ROUND);
-		setFill(Color.rgb(1,1,1,0.3));
+		setFill(Color.rgb(1, 1, 1, 0.3));
 		setStroke(Color.BLACK);
 		setStrokeWidth(5);
-	
+
 	}
-}//end Sensor
+}// end Sensor

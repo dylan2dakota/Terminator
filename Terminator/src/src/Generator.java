@@ -1,4 +1,5 @@
-package src;
+package src.src;
+
 import java.util.Random;
 
 /**
@@ -13,32 +14,35 @@ public class Generator {
 	public static Point[] points;
 	int density;
 
-	public Generator(){
-		
+	public Generator() {
+
 	}
 
 	public void finalize() throws Throwable {
 
 	}
-	
-	public static Point[] generatePoints(int density){
-		int i,j,k;
-		//random object for generator
+
+	public static Point[] generatePoints(int density) {
+		int i, j, k;
+		// Random object for generator
 		Random rn = new Random();
-		
-		//generate random points
-		for(i=0;i<density;i++){
-			x[i] = (rn.nextInt(999))+1; //x-coordinates
+		x = new int[density];
+		y = new int[density];
+		points = new Point[density];
+
+		// Generate random points
+		for (i = 0; i < density; i++) {
+			x[i] = (rn.nextInt(999)) + 1; // x-coordinates
 		}
-		for(j=0;j<density;j++){
-			y[j] = (rn.nextInt(700)); //y-coordinates
+		for (j = 0; j < density; j++) {
+			y[j] = (rn.nextInt(700)); // y-coordinates
 		}
-		
-		for(k=0;k<density;k++){
-			points[k]= new Point(x[k],y[k]); //array of points
+
+		for (k = 0; k < density; k++) {
+			points[k] = new Point(x[k], y[k]); // array of points
 		}
-		
+
 		return points;
 	}
-	
-}//end Generator
+
+}// end Generator
