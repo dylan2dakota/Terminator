@@ -1,4 +1,4 @@
-package src;
+package src.src;
 import javafx.scene.control.Menu;
 import javafx.scene.control.Button;
 

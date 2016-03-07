@@ -1,4 +1,4 @@
-package src;
+package src.src;
 
 import javafx.application.Application;
 import javafx.application.Platform;
