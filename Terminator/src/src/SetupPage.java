@@ -77,7 +77,7 @@ public class SetupPage extends Application{
 		Sensor sensor = new Sensor(375,600,sensorRange, sensorAngle);
 		
 		//Generate Points
-	//	generatedPoints = Generator.generatePoints(100);
+		//generatedPoints = Generator.generatePoints(100);
 		
 		//Event handler for Generate Button
 		generateButton.setOnAction(e -> {
@@ -92,6 +92,7 @@ public class SetupPage extends Application{
 		pane.setStyle("-fx-background-color: green;");
 		pane.setPrefWidth(650);
 		pane.getChildren().addAll(sensor,robot);
+		
 		/*
 		for(int i=0;i<pointDensity;i++){
 			pane.getChildren().add(generatedPoints[i]);
@@ -150,26 +151,31 @@ public class SetupPage extends Application{
 		launch(args);
 	}
 	
+	//get user input for point density
 	private int getPointDensity() {
 		pointDensity = Integer.valueOf(pointDensityInput.getText());
 		return pointDensity;
 	}
 	
+	//get user input for sensor angle
 	private int getSensorAngle() {
 		sensorAngle = Integer.valueOf(sensorAngleInput.getText());
 		return sensorAngle;
 	}
 	
+	//get user input for sensor range
 	private int getSensorRange() {
 		sensorRange = Integer.valueOf(sensorRangeInput.getText());
 		return sensorRange;
 	}
 	
+	//get user input for time limit
 	private int getTimeLimit() {
 		timeLimit = Integer.valueOf(timeLimitInput.getText());
 		return timeLimit;
 	}
 
+	//help menu for user
 	private void showAbout(){
 
 		final String helpText = "This Setup page allows the user to input Point Density, Sensor Angle, Sensor Range, and Time Limit for the navigation simulation."
