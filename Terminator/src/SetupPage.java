@@ -18,6 +18,10 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 
+/**
+ * @author Team
+ *
+ */
 public class SetupPage extends Application {
 
 	Integer pointDensity;
@@ -31,6 +35,7 @@ public class SetupPage extends Application {
 	Point[] generatedPoints;
 	Sensor sensor;
 	Robot robot;
+
 
 	@Override
 	// Override start method in Application class
@@ -94,7 +99,11 @@ public class SetupPage extends Application {
 		pane.getChildren().addAll(sensor, robot);
 		
 		
-		// Event handler for Generate Button
+		/* (non-Javadoc)
+		 * @see javafx.application.Application#start(javafx.stage.Stage)
+		 * 
+		 * Handler for generate button
+		 */
 				generateButton.setOnAction(e -> {
 					for(int i=0;i<pointDensity;i++){
 						 pane.getChildren().remove(generatedPoints[i]);

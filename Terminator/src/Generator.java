@@ -3,7 +3,7 @@
 import java.util.Random;
 
 /**
- * @author Owner
+ * @author Dylan and Dakodah
  * @version 1.0
  * @created 29-Feb-2016 12:35:51 PM
  */
@@ -22,6 +22,10 @@ public class Generator {
 
 	}
 
+	/**
+	 * @param user specified density
+	 * @return array of points 
+	 */
 	public static Point[] generatePoints(int density) {
 		int i, j, k;
 		// Random object for generator
