@@ -65,10 +65,10 @@ public class SetupPage extends Application {
 		simulationLabel.setFont(Font.font("Times New Roman", 32));
 		Label setupLabel = new Label("Setup"); // Label for Setup Page title
 		setupLabel.setFont(Font.font("Times New Roman", 32));
-		pointDensityInput = new TextField("50"); // Point density text field
-		sensorAngleInput = new TextField("50"); // Sensor angle text field
-		sensorRangeInput = new TextField("150"); // Sensor range text field
-		timeLimitInput = new TextField("5"); // Time limit text field
+		pointDensityInput = new TextField("0"); // Point density text field
+		sensorAngleInput = new TextField("0"); // Sensor angle text field
+		sensorRangeInput = new TextField("0"); // Sensor range text field
+		timeLimitInput = new TextField("0"); // Time limit text field
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
 		Button generateButton = new Button("GENERATE"); // Generate Button
