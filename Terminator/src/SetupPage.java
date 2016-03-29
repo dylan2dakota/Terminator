@@ -71,6 +71,9 @@ public class SetupPage extends Application {
 		timeLimitInput = new TextField("0"); // Time limit text field
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
+		/*---need to set up button location and add in button handler---*/
+		//Button saveFileButton = new Button ("Save"); // Save Data to file button
+		//saveFileButton.setStyle("-fx-backgroung-color: green;");
 		Button generateButton = new Button("GENERATE"); // Generate Button
 		generateButton.setStyle("-fx-background-color: lightblue;");
 		pointDensity = Integer.valueOf(pointDensityInput.getText());
