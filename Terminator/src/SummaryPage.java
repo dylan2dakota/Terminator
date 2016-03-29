@@ -1,6 +1,9 @@
 
 import javafx.scene.control.Menu;
 import javafx.stage.FileChooser;
+
+import java.io.File;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
@@ -14,7 +17,8 @@ public class SummaryPage {
 	private Menu fileMenu;
 	private Menu helpMenu;
 	private Button resetButton;
-
+	private Button saveFileButton;
+	
 	public SummaryPage(){
 
 	}
@@ -31,7 +35,14 @@ public class SummaryPage {
 	}
 	public void handle(ActionEvent event){
 		FileChooser fileChooser = new FileChooser();
-	
-	
+		
+		//set extension filter
+		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT file (*.txt)","*.txt");
+		fileChooser.getExtensionFilters().add(extensionFilter);
+		
+		//show save
+		//File file = fileChooser.showSaveDialog(primaryStage);
+		
+		
 	}
 }//end SummaryPage
