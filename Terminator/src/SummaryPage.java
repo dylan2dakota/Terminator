@@ -1,5 +1,7 @@
 
 import javafx.scene.control.Menu;
+import javafx.stage.FileChooser;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 /**
@@ -26,5 +28,10 @@ public class SummaryPage {
 
 	public void exportFile(){
 
+	}
+	public void handle(ActionEvent event){
+		FileChooser fileChooser = new FileChooser();
+	
+	
 	}
 }//end SummaryPage
