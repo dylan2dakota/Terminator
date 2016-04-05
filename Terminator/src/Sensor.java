@@ -47,7 +47,7 @@ public class Sensor extends Arc {
 			
 			if(straightDistance<nearestDistance){
 				nearestDistance = straightDistance;
-				nearestLocation = {xDist,yDist};
+				//nearestLocation = {xDist,yDist};
 			}
 			i++;
 		}
