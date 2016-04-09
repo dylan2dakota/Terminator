@@ -11,9 +11,6 @@ public class Controller {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
 	public int rotateRobot(int startx, int starty, int finalx, int finaly){
 		int angle = 0;
 		
@@ -26,4 +23,10 @@ public class Controller {
 		int newy;
 
 	}
+	
+	public static double[] move(double i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }//end Controller
