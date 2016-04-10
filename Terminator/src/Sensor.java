@@ -1,18 +1,19 @@
 
 
+import java.util.ArrayList;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 
 public class Sensor extends Arc {
 	
-	static Point[] refPoints;
-	public static double xCenter;
-	public static double yCenter;
-	public static double sensorRange;
-	public static double sensorAngle;
-	public static double heading;
-	Point[] pointsDetected;
+	public double xCenter;
+	public double yCenter;
+	public double sensorRange;
+	public double sensorAngle;
+	public double heading;
+	//Point[] pointsDetected;
 
 	public Sensor() {
 
@@ -40,19 +41,19 @@ public class Sensor extends Arc {
 	}
 
 	//Method to form array of points inside sensor area
-	public Point[] detectPoints() {
+	public ArrayList<Point> detectPoints() {
+		Point[] refPoints;
+		ArrayList<Point> pointsDetected = new ArrayList<>();
 		//Get reference points from SetupPage (user input)
 		refPoints = SetupPage.getRefPoints();
-		int j = 0;
 		
 		//For loop to evaluate each reference point
 		for (int i=0; i<refPoints.length; i++) {
 			double distance = measureDistance(refPoints[i]);
 			double angle = measureAngle(refPoints[i]);
 			//If reference point is in Sensor Area, add to pointsDetected
-			if (distance <= this.sensorRange && angle <= this.heading+this.sensorAngle && angle >= this.heading-this.sensorAngle) {
-				pointsDetected[j] = refPoints[i];
-				j++;
+			if (distance <= this.sensorRange && angle <= this.sensorAngle) {
+				pointsDetected.add(refPoints[i]);
 			}
 		}
 		return pointsDetected;
@@ -82,10 +83,11 @@ public class Sensor extends Arc {
 	public double measureAngle(Point refPoint) {
 		double angle;
 		double turn;
-		double yRef = refPoint.getCenterY();
-		double xRef = refPoint.getCenterX();
-		double yDistance = yRef-this.yCenter;
-		double xDistance = xRef-this.xCenter;
+		double yRef = refPoint.getCenterY(); //y-coord. of point
+		double xRef = refPoint.getCenterX(); //x-coord. of point
+		double yDistance = yRef-this.yCenter; //y-distance to point
+		double xDistance = xRef-this.xCenter; //x-distance to point
+		//Calculate angle between current location and point
 		if (xDistance >= 0 && yDistance >= 0) { //1st quadrant
 			angle = Math.toDegrees(Math.atan(yDistance/xDistance));
 		}else if (xDistance < 0 && yDistance >= 0) { //2nd quadrant
@@ -95,6 +97,7 @@ public class Sensor extends Arc {
 		}else { //4th quadrant
 			angle = 360 - Math.toDegrees(Math.atan(yDistance/xDistance));
 		}
+		//Calculate angle to turn robot 
 		turn = angle - this.heading;
 		return turn;
 	}

@@ -45,6 +45,8 @@ public class SetupPage extends Application {
 	Sensor sensor;
 	Robot robot;
 	double initialHeading;
+	static int mapWidth;
+	static int mapHeight;
 
 
 	@Override
@@ -59,6 +61,8 @@ public class SetupPage extends Application {
 		Menu menuFile, menuOptions, menuHelp; // Menus
 		MenuItem miReset, miExit, miAbout; // Menu items
 		CheckMenuItem miRandom; // Check menu items
+		mapWidth = 650; //Width of 2-D environment
+		mapHeight = 700; //Height of 2-D environment
 
 		// Create a BorderPane container for scene layout
 		borderPane = new BorderPane();
@@ -108,10 +112,11 @@ public class SetupPage extends Application {
 		referencePoints = Generator.generatePoints(numberRefPoints);
 		navigationPoints = Generator.generatePoints(numberNavPoints);
 
-		// Create Pane container for Robot
+		// Create Pane container for Preview
 		pane = new Pane();
 		pane.setStyle("-fx-background-color: green;");
-		pane.setPrefWidth(650);
+		pane.setPrefWidth(mapWidth);
+		pane.setPrefHeight(mapHeight);
 		for(int i=0;i<numberRefPoints;i++){
 			pane.getChildren().add(referencePoints[i]);
 		}
@@ -310,6 +315,14 @@ public class SetupPage extends Application {
 	
 	public static Point[] getRefPoints() {
 		return referencePoints;
+	}
+	
+	public static int getMapWidth() {
+		return mapWidth;
+	}
+	
+	public static int getMapHeight() {
+		return mapHeight;
 	}
 
 }

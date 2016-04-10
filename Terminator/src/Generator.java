@@ -28,6 +28,8 @@ public class Generator {
 	 */
 	public static Point[] generatePoints(int density) {
 		int i, j, k;
+		int mapWidth = SetupPage.getMapWidth();
+		int mapHeight = SetupPage.getMapHeight();
 		// Random object for generator
 		Random rn = new Random();
 		x = new int[density];
@@ -36,10 +38,10 @@ public class Generator {
 
 		// Generate random points
 		for (i = 0; i < density; i++) {
-			x[i] = (rn.nextInt(649)) + 2; // x-coordinates
+			x[i] = (rn.nextInt(mapWidth)) + 2; // x-coordinates
 		}
 		for (j = 0; j < density; j++) {
-			y[j] = (rn.nextInt(500)); // y-coordinates
+			y[j] = (rn.nextInt(mapHeight)); // y-coordinates
 		}
 
 		for (k = 0; k < density; k++) {

@@ -25,11 +25,11 @@ public class Controller {
 	}
 	*/
 	
-	public static double[] move(double[] oldLocation, double heading, double turnAngle) {
+	public static double[] move(double[] oldLocation, double heading, double turnAngle, double distance) {
 		double translateAngle = heading + turnAngle;
-		double translateX = Math.cos(Math.toRadians(translateAngle));
-		double translateY = Math.sin(Math.toRadians(translateAngle));
-		double[] newLocation = {oldLocation[1]+translateX, oldLocation[2]+translateY};
+		double translateX = (distance/2)*Math.cos(Math.toRadians(translateAngle));
+		double translateY = (distance/2)*Math.sin(Math.toRadians(translateAngle));
+		double[] newLocation = {oldLocation[0]+translateX, oldLocation[1]+translateY};
 		return newLocation;
 	}
 	
