@@ -160,6 +160,11 @@ public class SetupPage extends Application {
 			}
 
 		});
+		
+		startButton.setOnAction(e -> {
+			NavigationSimulation simulation = new NavigationSimulation();
+			simulation.navigate();
+		});
 
 		// Add labels, buttons and text fields to grid
 		grid.add(simulationLabel, 0, 0);

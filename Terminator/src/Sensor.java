@@ -12,12 +12,13 @@ public class Sensor extends Arc {
 	public static double sensorRange;
 	public static double sensorAngle;
 	public static double heading;
-	static Point[] pointsDetected;
+	Point[] pointsDetected;
 
 	public Sensor() {
 
 	}
 
+	//Sensor constructor
 	public Sensor(double xCenter, double yCenter, int sensorRange, int sensorAngle, double heading) {
 
 		this.xCenter = xCenter;
@@ -38,51 +39,53 @@ public class Sensor extends Arc {
 
 	}
 
+	//Method to form array of points inside sensor area
 	public Point[] detectPoints() {
-		
+		//Get reference points from SetupPage (user input)
 		refPoints = SetupPage.getRefPoints();
 		int j = 0;
 		
 		//For loop to evaluate each reference point
-		for (int i=1; i<refPoints.length+1; i++) {
+		for (int i=0; i<refPoints.length; i++) {
 			double distance = measureDistance(refPoints[i]);
 			double angle = measureAngle(refPoints[i]);
 			//If reference point is in Sensor Area, add to pointsDetected
-			if (distance <= sensorRange && angle <= heading+sensorAngle && angle >= heading-sensorAngle) {
+			if (distance <= this.sensorRange && angle <= this.heading+this.sensorAngle && angle >= this.heading-this.sensorAngle) {
 				pointsDetected[j] = refPoints[i];
 				j++;
 			}
 		}
-		//Sort pointsDetected in ascending order (by distance from robot)
-		
 		return pointsDetected;
 	}
 
+	//Method to return robot's location in map, based off reference point
 	public double[] locateRobot(Point refPoint) {
 		double yRef = refPoint.getCenterY();
 		double xRef = refPoint.getCenterX();
-		double yDistance = yRef-yCenter; //Give this an error
-		double xDistance = xRef-xCenter; //Give this an error
+		double yDistance = yRef-this.yCenter; //Give this an error
+		double xDistance = xRef-this.xCenter; //Give this an error
 		double[] location = {yRef-yDistance, xRef-xDistance};
 		return location;
 	}
 	
-	public static double measureDistance(Point refPoint) {
+	//Method to measure the straight-line distance to a point
+	public double measureDistance(Point refPoint) {
 		double yRef = refPoint.getCenterY();
 		double xRef = refPoint.getCenterX();
-		double yDistance = Math.abs(yRef-yCenter);
-		double xDistance = Math.abs(xRef-xCenter);
+		double yDistance = Math.abs(yRef-this.yCenter);
+		double xDistance = Math.abs(xRef-this.xCenter);
 		double distance = Math.sqrt((xDistance*xDistance)+(yDistance*yDistance));
 		return distance;
 	}
 
+	//Method to measure the angle between the robot's heading and a point
 	public double measureAngle(Point refPoint) {
 		double angle;
 		double turn;
 		double yRef = refPoint.getCenterY();
 		double xRef = refPoint.getCenterX();
-		double yDistance = yRef-yCenter;
-		double xDistance = xRef-xCenter;
+		double yDistance = yRef-this.yCenter;
+		double xDistance = xRef-this.xCenter;
 		if (xDistance >= 0 && yDistance >= 0) { //1st quadrant
 			angle = Math.toDegrees(Math.atan(yDistance/xDistance));
 		}else if (xDistance < 0 && yDistance >= 0) { //2nd quadrant
@@ -92,7 +95,7 @@ public class Sensor extends Arc {
 		}else { //4th quadrant
 			angle = 360 - Math.toDegrees(Math.atan(yDistance/xDistance));
 		}
-		turn = angle - heading;
+		turn = angle - this.heading;
 		return turn;
 	}
 	
