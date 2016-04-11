@@ -88,17 +88,19 @@ public class Sensor extends Arc {
 		double yDistance = yRef-this.yCenter; //y-distance to point
 		double xDistance = xRef-this.xCenter; //x-distance to point
 		//Calculate angle between current location and point
-		if (xDistance >= 0 && yDistance >= 0) { //1st quadrant
+		if (xDistance >= 0 && yDistance <= 0) { //1st quadrant
 			angle = Math.toDegrees(Math.atan(yDistance/xDistance));
-		}else if (xDistance < 0 && yDistance >= 0) { //2nd quadrant
-			angle = 180 - Math.toDegrees(Math.atan(yDistance/xDistance));
-		}else if (xDistance < 0 && yDistance < 0) { //3rd quadrant
+			turn = -(this.heading-angle);
+		}else if (xDistance < 0 && yDistance <= 0) { //2nd quadrant
 			angle = 180 + Math.toDegrees(Math.atan(yDistance/xDistance));
+			turn = angle-this.heading;
+		}else if (xDistance < 0 && yDistance > 0) { //3rd quadrant
+			angle = 180 + Math.toDegrees(Math.atan(yDistance/xDistance));
+			turn = angle-this.heading;
 		}else { //4th quadrant
-			angle = 360 - Math.toDegrees(Math.atan(yDistance/xDistance));
+			angle = 360 + Math.toDegrees(Math.atan(yDistance/xDistance));
+			turn = (360-angle)+this.heading;
 		}
-		//Calculate angle to turn robot 
-		turn = angle - this.heading;
 		return turn;
 	}
 	
