@@ -52,7 +52,7 @@ public class Sensor extends Arc {
 			double distance = measureDistance(refPoints[i]);
 			double angle = measureAngle(refPoints[i]);
 			//If reference point is in Sensor Area, add to pointsDetected
-			if (distance <= this.sensorRange && angle <= this.sensorAngle) {
+			if (distance <= this.sensorRange && Math.abs(angle)<= this.sensorAngle) {
 				pointsDetected.add(refPoints[i]);
 			}
 		}
@@ -87,6 +87,7 @@ public class Sensor extends Arc {
 		double xRef = refPoint.getCenterX(); //x-coord. of point
 		double yDistance = yRef-this.yCenter; //y-distance to point
 		double xDistance = xRef-this.xCenter; //x-distance to point
+		System.out.println("xDistance: "+xDistance+" yDistance: "+yDistance);
 		//Calculate angle between current location and point
 		if (xDistance >= 0 && yDistance <= 0) { //1st quadrant
 			angle = Math.toDegrees(Math.atan(yDistance/xDistance));

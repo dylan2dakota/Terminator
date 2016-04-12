@@ -42,7 +42,7 @@ public class SummaryPage {
 		
 		/* show save
 		 * why is primarystage messed up*/
-		File file = fileChooser.showSaveDialog(primaryStage);
+		//File file = fileChooser.showSaveDialog(primaryStage);
 		
 		
 	}

@@ -13,7 +13,7 @@ public class NavigationSimulation {
 		int sensorRange = SetupPage.getSensorRange();
 		int sensorAngle = SetupPage.getSensorAngle();
 		double heading;
-		double navigationDistance = 10;
+		double navigationDistance = 100;
 		//Collect array of all Navigation Points
 		navPoints = SetupPage.getNavPoints();
 		//Create sensor
@@ -26,7 +26,7 @@ public class NavigationSimulation {
 			//Locate Navigation Point (Define internal map coordinates)
 			Point navPoint = navPoints[i];
 
-			while (navigationDistance > 10) {
+			while (navigationDistance > 99) {
 
 				//Search for closest Reference point
 				//If no points in sensor area, move forward.
