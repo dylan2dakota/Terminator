@@ -40,8 +40,9 @@ public class SummaryPage {
 		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT file (*.txt)","*.txt");
 		fileChooser.getExtensionFilters().add(extensionFilter);
 		
-		//show save
-		//File file = fileChooser.showSaveDialog(primaryStage);
+		/* show save
+		 * why is primarystage messed up*/
+		File file = fileChooser.showSaveDialog(primaryStage);
 		
 		
 	}

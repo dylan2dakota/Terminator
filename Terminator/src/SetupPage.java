@@ -72,8 +72,8 @@ public class SetupPage extends Application {
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
 		/*---need to set up button location and add in button handler---*/
-		//Button saveFileButton = new Button ("Save"); // Save Data to file button
-		//saveFileButton.setStyle("-fx-backgroung-color: green;");
+		Button saveFileButton = new Button ("Save"); // Save Data to file button
+		saveFileButton.setStyle("-fx-backgroung-color: green;");
 		Button generateButton = new Button("GENERATE"); // Generate Button
 		generateButton.setStyle("-fx-background-color: lightblue;");
 		pointDensity = Integer.valueOf(pointDensityInput.getText());
@@ -143,7 +143,8 @@ public class SetupPage extends Application {
 		grid.add(timeLimitInput, 1, 4);
 		grid.add(startButton, 1, 5);
 		grid.add(generateButton, 0, 5);
-
+		grid.add(saveFileButton, 1, 10);
+		
 		// Create Menu Bar
 		menuBar = new MenuBar();
 		// Create Menus
@@ -166,7 +167,9 @@ public class SetupPage extends Application {
 		// Event handlers
 		miExit.setOnAction(e -> Platform.exit()); // Exit button
 		miAbout.setOnAction(e -> showAbout()); // Help menu item
-
+		saveFileButton.setOnAction(e -> handle() );
+		
+		
 		// Create a scene and place it in the stage
 		Scene scene = new Scene(borderPane, 1000, 700);
 		borderPane.setTop(menuBar);
