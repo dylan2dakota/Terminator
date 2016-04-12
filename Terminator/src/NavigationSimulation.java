@@ -26,7 +26,7 @@ public class NavigationSimulation {
 			//Locate Navigation Point (Define internal map coordinates)
 			Point navPoint = navPoints[i];
 
-			while (navigationDistance > 1) {
+			while (navigationDistance > 10) {
 
 				//Search for closest Reference point
 				//If no points in sensor area, move forward.
