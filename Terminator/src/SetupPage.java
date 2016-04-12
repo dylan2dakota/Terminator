@@ -89,6 +89,7 @@ public class SetupPage extends Application {
 		maxLocationErrorInput = new TextField("0"); // Max Location Error text field
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
+
 		Button generateButton = new Button("GENERATE"); // Generate Button
 		generateButton.setStyle("-fx-background-color: lightblue;");
 		numberRefPoints = Integer.valueOf(numberRefPointsInput.getText());
@@ -99,7 +100,10 @@ public class SetupPage extends Application {
 		midRangeSensing = Integer.valueOf(midRangeSensingInput.getText());
 		closeRangeSensing = Integer.valueOf(closeRangeSensingInput.getText());
 		maxLocationError = Integer.valueOf(maxLocationErrorInput.getText());
-
+		/*---need to set up button location and add in button handler---*/
+		Button saveFileButton = new Button ("Save"); // Save Data to file button
+		saveFileButton.setStyle("-fx-backgroung-color: green;");
+		
 		// Create Robot
 		robot = new Robot(100, 325, 550);
 
@@ -192,6 +196,7 @@ public class SetupPage extends Application {
 		grid.add(maxLocationErrorInput, 1, 8);
 		grid.add(startButton, 1, 9);
 		grid.add(generateButton, 0, 9);
+		grid.add(saveFileButton, 1, 14);
 
 		// Create Menu Bar
 		menuBar = new MenuBar();
@@ -215,7 +220,9 @@ public class SetupPage extends Application {
 		// Event handlers
 		miExit.setOnAction(e -> Platform.exit()); // Exit button
 		miAbout.setOnAction(e -> showAbout()); // Help menu item
-
+		saveFileButton.setOnAction(e -> handle() );
+		
+		
 		// Create a scene and place it in the stage
 		Scene scene = new Scene(borderPane, 1000, 700);
 		borderPane.setTop(menuBar);
