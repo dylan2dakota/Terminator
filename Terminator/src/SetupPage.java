@@ -28,17 +28,17 @@ public class SetupPage extends Application {
 	Integer numberNavPoints;
 	static Integer sensorAngle;
 	static Integer sensorRange;
-	Integer farRangeSensing;
-	Integer midRangeSensing;
-	Integer closeRangeSensing;
+	static Integer farRangeSensing;
+	static Integer midRangeSensing;
+	static Integer closeRangeSensing;
 	Integer maxLocationError;
 	TextField numberRefPointsInput;
 	TextField numberNavPointsInput;
 	static TextField sensorAngleInput;
 	static TextField sensorRangeInput;
-	TextField farRangeSensingInput;
-	TextField midRangeSensingInput;
-	TextField closeRangeSensingInput;
+	static TextField farRangeSensingInput;
+	static TextField midRangeSensingInput;
+	static TextField closeRangeSensingInput;
 	TextField maxLocationErrorInput;
 	static Point[] referencePoints;
 	static Point[] navigationPoints;
@@ -110,7 +110,7 @@ public class SetupPage extends Application {
 		initialHeading = 90;
 		
 		// Create Sensor
-		sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading);
+		sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing);
 
 		// Generate Points
 		referencePoints = Generator.generatePoints(numberRefPoints);
@@ -154,7 +154,7 @@ public class SetupPage extends Application {
 			pane.getChildren().removeAll(sensor,robot);
 
 
-			sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading);
+			sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing);
 			robot = new Robot(100, 325, 550);
 			referencePoints = Generator.generatePoints(numberRefPoints);
 			navigationPoints = Generator.generatePoints(numberNavPoints);
@@ -260,19 +260,19 @@ public class SetupPage extends Application {
 	}
 
 	// get user input for far-range sensing
-	private int getFarRangeSensing() {
+	static int getFarRangeSensing() {
 		farRangeSensing = Integer.valueOf(farRangeSensingInput.getText());
 		return farRangeSensing;
 	}
 
 	// get user input for mid-range sensing
-	private int getMidRangeSensing() {
+	static int getMidRangeSensing() {
 		midRangeSensing = Integer.valueOf(midRangeSensingInput.getText());
 		return midRangeSensing;
 	}
 
 	// get user input for close-range sensing
-	private int getCloseRangeSensing() {
+	static int getCloseRangeSensing() {
 		closeRangeSensing = Integer.valueOf(closeRangeSensingInput.getText());
 		return closeRangeSensing;
 	}

@@ -13,6 +13,10 @@ public class Sensor extends Arc {
 	public double sensorRange;
 	public double sensorAngle;
 	public double heading;
+	public int closeError;
+	public int midError;
+	public int farError;
+
 	//Point[] pointsDetected;
 
 	public Sensor() {
@@ -20,13 +24,16 @@ public class Sensor extends Arc {
 	}
 
 	//Sensor constructor
-	public Sensor(double xCenter, double yCenter, int sensorRange, int sensorAngle, double heading) {
+	public Sensor(double xCenter, double yCenter, int sensorRange, int sensorAngle, double heading, int closeError, int midError, int farError) {
 
 		this.xCenter = xCenter;
 		this.yCenter = yCenter;
 		this.sensorRange = sensorRange;
 		this.sensorAngle = sensorAngle;
 		this.heading = heading;
+		this.closeError = closeError;
+		this.midError = midError;
+		this.farError = farError;
 		setCenterX(xCenter);
 		setCenterY(yCenter);
 		setRadiusX(sensorRange);
