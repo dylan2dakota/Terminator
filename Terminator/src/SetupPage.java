@@ -233,10 +233,7 @@ public class SetupPage extends Application {
 		primaryStage.show();
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		launch(args);
-	}
+	
 
 	// get user input for number of reference points
 	private int getnumberRefPoints() {
