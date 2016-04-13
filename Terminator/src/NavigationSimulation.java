@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NavigationSimulation {
 
@@ -14,6 +15,10 @@ public class NavigationSimulation {
 		int sensorAngle = SetupPage.getSensorAngle();
 		double heading;
 		double navigationDistance;
+		int mapWidth = SetupPage.getMapWidth();
+		int mapHeight = SetupPage.getMapHeight();
+		Random randomAngle = new Random();
+		
 		//Collect array of all Navigation Points
 		navPoints = SetupPage.getNavPoints();
 		//Create sensor
@@ -37,8 +42,20 @@ public class NavigationSimulation {
 				ArrayList<Point> pointsDetected = sensor.detectPoints();
 				if (pointsDetected.size() == 0) {
 					robotLocation = Controller.move(robotLocation, heading, 0, 10);
+					
+					//Make sure robot stays in map
+					if (robotLocation[0] >= mapWidth){heading = randomAngle.nextInt(178)+91;}
+					if (robotLocation[0] <= 0){
+						heading = randomAngle.nextInt(178)-89;
+						if (heading<0){heading = heading+360;}
+					}
+					if (robotLocation[1] >= mapHeight){heading = randomAngle.nextInt(178)+1;}
+					if (robotLocation[1] <= 0){heading = randomAngle.nextInt(178)+181;}
+					
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading);
 					System.out.println("None Detected");
+					navigationDistance = sensor.measureDistance(navPoint);
+					System.out.println("Distance to Navigation Point: "+navigationDistance);
 				} else {
 					System.out.println("Number of Points detected: "+pointsDetected.size());
 					System.out.println("Location: "+robotLocation[0]+", "+robotLocation[1]);
@@ -53,7 +70,7 @@ public class NavigationSimulation {
 					
 					robotLocation = Controller.move(robotLocation, heading, turnAngle, navigationDistance); //Move Robot toward Navigation Point
 					System.out.println("New Location: "+robotLocation[0]+", "+robotLocation[1]);
-					heading = heading + turnAngle; //Redefine Robot heading
+					heading = heading + turnAngle; //Redefine Robot heading			
 					System.out.println("New heading: "+heading);
 					//Reposition Sensor
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading);
