@@ -46,6 +46,7 @@ public class Sensor extends Arc {
 		ArrayList<Point> pointsDetected = new ArrayList<>();
 		//Get reference points from SetupPage (user input)
 		refPoints = SetupPage.getRefPoints();
+		System.out.println("Number of Reference Points: "+refPoints.length);
 		
 		//For loop to evaluate each reference point
 		for (int i=0; i<refPoints.length; i++) {
@@ -65,7 +66,7 @@ public class Sensor extends Arc {
 		double xRef = refPoint.getCenterX();
 		double yDistance = yRef-this.yCenter; //Give this an error
 		double xDistance = xRef-this.xCenter; //Give this an error
-		double[] location = {yRef-yDistance, xRef-xDistance};
+		double[] location = {xRef-xDistance, yRef-yDistance};
 		return location;
 	}
 	
@@ -87,21 +88,20 @@ public class Sensor extends Arc {
 		double xRef = refPoint.getCenterX(); //x-coord. of point
 		double yDistance = yRef-this.yCenter; //y-distance to point
 		double xDistance = xRef-this.xCenter; //x-distance to point
-		System.out.println("xDistance: "+xDistance+" yDistance: "+yDistance);
+		//System.out.println("xDistance: "+xDistance+" yDistance: "+yDistance);
 		//Calculate angle between current location and point
 		if (xDistance >= 0 && yDistance <= 0) { //1st quadrant
-			angle = Math.toDegrees(Math.atan(yDistance/xDistance));
-			turn = -(this.heading-angle);
+			angle = -Math.toDegrees(Math.atan(yDistance/xDistance));
 		}else if (xDistance < 0 && yDistance <= 0) { //2nd quadrant
-			angle = 180 + Math.toDegrees(Math.atan(yDistance/xDistance));
-			turn = angle-this.heading;
+			angle = 180 - Math.toDegrees(Math.atan(yDistance/xDistance));
 		}else if (xDistance < 0 && yDistance > 0) { //3rd quadrant
-			angle = 180 + Math.toDegrees(Math.atan(yDistance/xDistance));
-			turn = angle-this.heading;
+			angle = 180 - Math.toDegrees(Math.atan(yDistance/xDistance));
 		}else { //4th quadrant
 			angle = 360 + Math.toDegrees(Math.atan(yDistance/xDistance));
-			turn = (360-angle)+this.heading;
 		}
+		turn = angle-this.heading;
+		if (turn > 180) {turn = -(360-turn);}
+		//System.out.println("REF angle: "+turn);
 		return turn;
 	}
 	

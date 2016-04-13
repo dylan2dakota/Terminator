@@ -13,29 +13,36 @@ public class NavigationSimulation {
 		int sensorRange = SetupPage.getSensorRange();
 		int sensorAngle = SetupPage.getSensorAngle();
 		double heading;
-		double navigationDistance = 100;
+		double navigationDistance;
 		//Collect array of all Navigation Points
 		navPoints = SetupPage.getNavPoints();
 		//Create sensor
 		heading = 90;
 		robotLocation[0] = 375; robotLocation[1] = 600;
 		sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading); 
-
+		int loops = 0;
+		
 		for (int i=0; i<navPoints.length; i++) {
+			
+			navigationDistance = 10;
 
 			//Locate Navigation Point (Define internal map coordinates)
 			Point navPoint = navPoints[i];
 
-			while (navigationDistance > 99) {
-
+			while (navigationDistance >= 1) {
+				loops++;
+				System.out.println(loops);
 				//Search for closest Reference point
 				//If no points in sensor area, move forward.
 				ArrayList<Point> pointsDetected = sensor.detectPoints();
 				if (pointsDetected.size() == 0) {
 					robotLocation = Controller.move(robotLocation, heading, 0, 10);
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading);
+					System.out.println("None Detected");
 				} else {
 					System.out.println("Number of Points detected: "+pointsDetected.size());
+					System.out.println("Location: "+robotLocation[0]+", "+robotLocation[1]);
+					System.out.println("Heading: "+heading);
 					//Determine Robot's position based on closest reference point
 					Point refPoint = pointsDetected.get(0); //Defines coordinates of closest reference point
 					robotLocation = sensor.locateRobot(refPoint); //Defines robot's coordinates based on closest reference point
@@ -43,8 +50,11 @@ public class NavigationSimulation {
 					System.out.println("Turn Angle: "+turnAngle);
 					navigationDistance = sensor.measureDistance(navPoint);
 					System.out.println("Distance to Navigation Point: "+navigationDistance);
+					
 					robotLocation = Controller.move(robotLocation, heading, turnAngle, navigationDistance); //Move Robot toward Navigation Point
+					System.out.println("New Location: "+robotLocation[0]+", "+robotLocation[1]);
 					heading = heading + turnAngle; //Redefine Robot heading
+					System.out.println("New heading: "+heading);
 					//Reposition Sensor
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading);
 					navigationDistance = sensor.measureDistance(navPoint);
