@@ -44,14 +44,14 @@ public class SummaryPage {
 		fileChooser.getExtensionFilters().add(extensionFilter);
 
 		
-		try {
+		/*try {
 			FileWriter dataOut = new FileWriter("Point_Data.txt");
 			BufferedWriter out = new BufferedWriter(dataOut); 
 			PrintWriter fOut = new PrintWriter(out);
 			
-			for(int i=0;i</*array name*/.length;i++){
-				if(/*arrayname*/[i]=null)
-					out.write(/*arrayname*/[i]);
+			for(int i=0;i</*array name.length;i++){
+				if(/*arrayname[i]=null)
+					out.write(/*arrayname[i]);
 				out.write("\n");
 			}
 			out.close();
@@ -59,9 +59,7 @@ public class SummaryPage {
 		}catch (Exception e){
 			System.err.println("Error" + e.getMessage());
 		}
-		/* show save
-		 * why is primarystage messed up*/   
-		//File file = fileChooser.showSaveDialog(primaryStage);
+		*/
 		
 		
 	}
