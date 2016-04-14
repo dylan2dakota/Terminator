@@ -91,10 +91,13 @@ public class Sensor extends Arc {
 	//Method to return robot's location in map, based off reference point
 	public double[] locateRobot(Point refPoint) {
 		Random random = new Random();
+		//Reference point coordinates
 		double yRef = refPoint.getCenterY();
 		double xRef = refPoint.getCenterX();
+		//Errors for x and y distance
 		double yError = random.nextInt(2*maxLocationError)-maxLocationError;
 		double xError = random.nextInt(2*maxLocationError)-maxLocationError;
+		//Sensor-estimated robot location
 		double yDistance = (yRef-this.yCenter)+yError; //Give this an error
 		double xDistance = (xRef-this.xCenter)+xError; //Give this an error
 		double[] location = {xRef-xDistance, yRef-yDistance};
@@ -103,10 +106,13 @@ public class Sensor extends Arc {
 
 	//Method to measure the straight-line distance to a point
 	public double measureDistance(Point refPoint) {
+		//Point coordinates
 		double yRef = refPoint.getCenterY();
 		double xRef = refPoint.getCenterX();
+		//X and y distances
 		double yDistance = Math.abs(yRef-this.yCenter);
 		double xDistance = Math.abs(xRef-this.xCenter);
+		//Straight-line distance
 		double distance = Math.sqrt((xDistance*xDistance)+(yDistance*yDistance));
 		return distance;
 	}
@@ -115,11 +121,12 @@ public class Sensor extends Arc {
 	public double measureAngle(Point refPoint) {
 		double angle;
 		double turn;
-		double yRef = refPoint.getCenterY(); //y-coord. of point
-		double xRef = refPoint.getCenterX(); //x-coord. of point
-		double yDistance = yRef-this.yCenter; //y-distance to point
-		double xDistance = xRef-this.xCenter; //x-distance to point
-		//System.out.println("xDistance: "+xDistance+" yDistance: "+yDistance);
+		//Point x and y coordinates
+		double yRef = refPoint.getCenterY();
+		double xRef = refPoint.getCenterX();
+		//X and y distances to point
+		double yDistance = yRef-this.yCenter;
+		double xDistance = xRef-this.xCenter;
 		//Calculate angle between current location and point
 		if (xDistance >= 0 && yDistance <= 0) { //1st quadrant
 			angle = -Math.toDegrees(Math.atan(yDistance/xDistance));
@@ -130,9 +137,10 @@ public class Sensor extends Arc {
 		}else { //4th quadrant
 			angle = 360 + Math.toDegrees(Math.atan(yDistance/xDistance));
 		}
+		//Angle between robot's current heading and point
 		turn = angle-this.heading;
+		//Angles greater than 180 expressed as negative angle
 		if (turn > 180) {turn = -(360-turn);}
-		//System.out.println("REF angle: "+turn);
 		return turn;
 	}
 

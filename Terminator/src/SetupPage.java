@@ -186,11 +186,11 @@ public class SetupPage extends Application {
 		grid.add(sensorAngleInput, 1, 3);
 		grid.add(new Label("Sensor Range:"), 0, 4);
 		grid.add(sensorRangeInput, 1, 4);
-		grid.add(new Label("Far-Range Sensing (Detection %):"), 0, 5);
+		grid.add(new Label("Far-Range Sensing Error (%):"), 0, 5);
 		grid.add(farRangeSensingInput, 1, 5);
-		grid.add(new Label("Mid-Range Sensing (Detection %):"), 0, 6);
+		grid.add(new Label("Mid-Range Sensing Error (%):"), 0, 6);
 		grid.add(midRangeSensingInput, 1, 6);
-		grid.add(new Label("Close-Range Sensing (Detection %):"), 0, 7);
+		grid.add(new Label("Close-Range Sensing Error (%):"), 0, 7);
 		grid.add(closeRangeSensingInput, 1, 7);
 		grid.add(new Label("Max. Location Error:"), 0, 8);
 		grid.add(maxLocationErrorInput, 1, 8);
