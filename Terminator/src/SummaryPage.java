@@ -2,7 +2,9 @@
 import javafx.scene.control.Menu;
 import javafx.stage.FileChooser;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -39,9 +41,17 @@ public class SummaryPage {
 		//set extension filter
 		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT file (*.txt)","*.txt");
 		fileChooser.getExtensionFilters().add(extensionFilter);
+
 		
+		try {
+			FileWriter fstream = new FileWriter("out.txt");
+			BufferedWriter out = new BufferedWriter(fstream); 
+			
+		}catch (exception e){
+			
+		}
 		/* show save
-		 * why is primarystage messed up*/
+		 * why is primarystage messed up*/   
 		//File file = fileChooser.showSaveDialog(primaryStage);
 		
 		
