@@ -20,6 +20,7 @@ public class NavigationSimulation {
 		int closeError = SetupPage.getCloseRangeSensing();
 		int midError = SetupPage.getMidRangeSensing();
 		int farError = SetupPage.getFarRangeSensing();
+		int maxLocationError = SetupPage.getMaxLocationError();
 		Random randomAngle = new Random();
 		
 		//Collect array of all Navigation Points
@@ -27,7 +28,7 @@ public class NavigationSimulation {
 		//Create sensor
 		heading = 90;
 		robotLocation[0] = 375; robotLocation[1] = 600;
-		sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError); 
+		sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError); 
 		int loops = 0;
 		
 		for (int i=0; i<navPoints.length; i++) {
@@ -55,7 +56,7 @@ public class NavigationSimulation {
 					if (robotLocation[1] >= mapHeight){heading = randomAngle.nextInt(178)+1;}
 					if (robotLocation[1] <= 0){heading = randomAngle.nextInt(178)+181;}
 					
-					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError);
+					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError);
 					System.out.println("None Detected");
 					navigationDistance = sensor.measureDistance(navPoint);
 					System.out.println("Distance to Navigation Point: "+navigationDistance);
@@ -76,7 +77,7 @@ public class NavigationSimulation {
 					heading = heading + turnAngle; //Redefine Robot heading			
 					System.out.println("New heading: "+heading);
 					//Reposition Sensor
-					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError);
+					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError);
 					navigationDistance = sensor.measureDistance(navPoint);
 				}
 			}//End while loop (move to next point)

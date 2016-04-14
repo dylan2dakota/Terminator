@@ -31,7 +31,7 @@ public class SetupPage extends Application {
 	static Integer farRangeSensing;
 	static Integer midRangeSensing;
 	static Integer closeRangeSensing;
-	Integer maxLocationError;
+	static Integer maxLocationError;
 	TextField numberRefPointsInput;
 	TextField numberNavPointsInput;
 	static TextField sensorAngleInput;
@@ -39,7 +39,7 @@ public class SetupPage extends Application {
 	static TextField farRangeSensingInput;
 	static TextField midRangeSensingInput;
 	static TextField closeRangeSensingInput;
-	TextField maxLocationErrorInput;
+	static TextField maxLocationErrorInput;
 	static Point[] referencePoints;
 	static Point[] navigationPoints;
 	Sensor sensor;
@@ -110,7 +110,7 @@ public class SetupPage extends Application {
 		initialHeading = 90;
 		
 		// Create Sensor
-		sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing);
+		sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing, maxLocationError);
 
 		// Generate Points
 		referencePoints = Generator.generatePoints(numberRefPoints);
@@ -154,7 +154,7 @@ public class SetupPage extends Application {
 			pane.getChildren().removeAll(sensor,robot);
 
 
-			sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing);
+			sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing, maxLocationError);
 			robot = new Robot(100, 325, 550);
 			referencePoints = Generator.generatePoints(numberRefPoints);
 			navigationPoints = Generator.generatePoints(numberNavPoints);
@@ -278,7 +278,7 @@ public class SetupPage extends Application {
 	}
 
 	// get user input for max location error
-	private int getMaxLocationError() {
+	static int getMaxLocationError() {
 		maxLocationError = Integer.valueOf(maxLocationErrorInput.getText());
 		return maxLocationError;
 	}
