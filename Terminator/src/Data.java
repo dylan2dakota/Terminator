@@ -1,25 +1,29 @@
+import java.util.ArrayList;
 
-
-/**
- * @author Owner
- * @version 1.0
- * @created 29-Feb-2016 12:35:51 PM
- */
 public class Data {
-
-	private int numberPointsDetected;
-	private double percentError;
-	private int time;
-	private int totalNumberPoints;
 
 	public Data(){
 
 	}
 
-	public void finalize() throws Throwable {
-
+	//Method to calculate total navigation distance in a simulation
+	public static double sumDistance(ArrayList<Double> totalNavigationDistance) {
+		double sum = 0;
+		for (int i=0; i<totalNavigationDistance.size(); i++){
+			sum = sum + totalNavigationDistance.get(i);
+		}
+		return sum;
 	}
-	public void updateData(){
-
+	
+	//Method to calculate average error percentage
+	public static double errorAverage(ArrayList<Double> totalError) {
+		double average;
+		double sum = 0;
+		for (int i=0; i<totalError.size(); i++){
+			sum = sum + totalError.get(i);
+		}
+		average = sum/totalError.size();
+		return average;
 	}
+	
 }//end Data

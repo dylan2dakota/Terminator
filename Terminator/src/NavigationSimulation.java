@@ -25,7 +25,10 @@ public class NavigationSimulation {
 		double actualDistance;
 		double locationError;
 		double locationErrorPercentage;
-		int detectionError;
+		double detectionError;
+		ArrayList<Double> collectNavigationDistance = new ArrayList<>();
+		ArrayList<Double> collectDetectionError = new ArrayList<>();
+		ArrayList<Double> collectLocationErrorPercentage = new ArrayList<>();
 		
 		//Collect array of all Navigation Points
 		navPoints = SetupPage.getNavPoints();
@@ -52,6 +55,7 @@ public class NavigationSimulation {
 				//Calculate detection error
 				if (pointsInSensor.size() > 0){
 				detectionError = ((pointsInSensor.size()-pointsDetected.size())/pointsInSensor.size())*100;
+				collectDetectionError.add(detectionError);
 				}
 				//If no points in sensor area, move forward.
 				if (pointsDetected.size() == 0) {
@@ -78,6 +82,7 @@ public class NavigationSimulation {
 					Point refPoint = pointsDetected.get(0); //Defines coordinates of reference point
 					//Measure the distance from robot's location to navigation point
 					actualDistance = sensor.measureDistance(navPoint);
+					System.out.println("Actual Distance: "+actualDistance);
 					robotLocation = sensor.locateRobot(refPoint); //Defines robot's coordinates based on reference point
 					//Reposition sensor based on new robot location
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError);
@@ -90,9 +95,12 @@ public class NavigationSimulation {
 					//Calculate Sensor location error and error percentage
 					locationError = Math.abs(actualDistance-navigationDistance);
 					locationErrorPercentage = Math.abs((actualDistance-navigationDistance)/actualDistance)*100;
+					collectLocationErrorPercentage.add(locationErrorPercentage);
 					System.out.println("Location Error: "+locationError+" ("+locationErrorPercentage+"%)");
 					//Move robot toward navigation point (half the measured navigation distance)
-					robotLocation = Controller.move(robotLocation, heading, turnAngle, navigationDistance); //Move Robot toward Navigation Point
+					robotLocation = Controller.move(robotLocation, heading, turnAngle, navigationDistance);
+					//Collect distance navigated
+					collectNavigationDistance.add(navigationDistance/2);
 					System.out.println("New Location: "+robotLocation[0]+", "+robotLocation[1]);
 					//Determine new heading
 					heading = heading + turnAngle; //Redefine Robot heading			
@@ -107,5 +115,14 @@ public class NavigationSimulation {
 			System.out.println("Found "+numFound+" points!");
 			System.out.println(navigationDistance);
 		}//End for loop (navigation complete)
-	}
+		//Sum total navigation distance
+		double sumDistance = Data.sumDistance(collectNavigationDistance);
+		System.out.println("Total Navigation Distance: "+sumDistance+" units");
+		//Average detection error percentage
+		double detectionErrorAverage = Data.errorAverage(collectDetectionError);
+		System.out.println("Average Detection Error: "+detectionErrorAverage+"%");
+		//Average location error percentage
+		double locationErrorAverage = Data.errorAverage(collectLocationErrorPercentage);
+		System.out.println("Average Location Error: "+locationErrorAverage+"%");
+	}//End navigate() method
 }//end NavigationSimulation

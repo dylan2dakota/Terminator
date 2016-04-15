@@ -19,8 +19,6 @@ public class Sensor extends Arc {
 	public int farError;
 	public int maxLocationError;
 
-	//Point[] pointsDetected;
-
 	public Sensor() {
 
 	}
