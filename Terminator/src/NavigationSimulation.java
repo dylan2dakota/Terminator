@@ -50,7 +50,9 @@ public class NavigationSimulation {
 				//Actual number of reference points in sensor area (doesn't include sensor detection error)
 				ArrayList<Point> pointsInSensor = sensor.detectPointsNoError();
 				//Calculate detection error
+				if (pointsInSensor.size() > 0){
 				detectionError = ((pointsInSensor.size()-pointsDetected.size())/pointsInSensor.size())*100;
+				}
 				//If no points in sensor area, move forward.
 				if (pointsDetected.size() == 0) {
 					robotLocation = Controller.move(robotLocation, heading, 0, 10);
