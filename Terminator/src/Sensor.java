@@ -50,20 +50,44 @@ public class Sensor extends Arc {
 
 	}
 
-	//Method to form array of points inside sensor area
-	public ArrayList<Point> detectPoints() {
-		Random random = new Random();
-		double error;
+	//Method to form array of points inside sensor area with no error
+	public ArrayList<Point> detectPointsNoError() {
 		Point[] refPoints;
 		ArrayList<Point> pointsDetected = new ArrayList<>();
-		
+
 		//Get reference points from SetupPage (user input)
 		refPoints = SetupPage.getRefPoints();
 		System.out.println("Number of Reference Points: "+refPoints.length);
 
 		//For loop to evaluate each reference point
 		for (int i=0; i<refPoints.length; i++) {
-			
+
+			//Measure the distance and angle to reference point
+			double distance = measureDistance(refPoints[i]);
+			double angle = measureAngle(refPoints[i]);
+
+			//If reference point is in Sensor Area, add to pointsDetected
+			if (distance <= this.sensorRange && Math.abs(angle)<= this.sensorAngle) {
+				pointsDetected.add(refPoints[i]);
+			}
+		}
+		return pointsDetected;
+	}
+
+	//Method to form array of points inside sensor area
+	public ArrayList<Point> detectPoints() {
+		Random random = new Random();
+		double error;
+		Point[] refPoints;
+		ArrayList<Point> pointsDetected = new ArrayList<>();
+
+		//Get reference points from SetupPage (user input)
+		refPoints = SetupPage.getRefPoints();
+		System.out.println("Number of Reference Points: "+refPoints.length);
+
+		//For loop to evaluate each reference point
+		for (int i=0; i<refPoints.length; i++) {
+
 			//Measure the distance and angle to reference point
 			double distance = measureDistance(refPoints[i]);
 			double angle = measureAngle(refPoints[i]);
@@ -73,14 +97,14 @@ public class Sensor extends Arc {
 			else if (distance > this.sensorRange/3 &&distance <= this.sensorRange*(2/3)) {
 				error = this.midError;
 			}else {error = this.farError;}
-			
+
 			//Random number (between 1 & 100) to determine if point is detected
 			int detect = random.nextInt(100);
 
-			//If random number greater than error percentage, point detected
-			if (detect >= error) {
-				//If reference point is in Sensor Area, add to pointsDetected
-				if (distance <= this.sensorRange && Math.abs(angle)<= this.sensorAngle) {
+			//If reference point is in Sensor Area, add to pointsDetected
+			if (distance <= this.sensorRange && Math.abs(angle)<= this.sensorAngle) {
+				//If random number greater than error percentage, point detected
+				if (detect >= error) {
 					pointsDetected.add(refPoints[i]);
 				}
 			}
@@ -92,14 +116,20 @@ public class Sensor extends Arc {
 	public double[] locateRobot(Point refPoint) {
 		Random random = new Random();
 		//Reference point coordinates
-		double yRef = refPoint.getCenterY();
 		double xRef = refPoint.getCenterX();
+		double yRef = refPoint.getCenterY();
+		//Measure x and y distances
+		double xMeasure = Math.abs(xRef-this.xCenter);
+		double yMeasure = Math.abs(yRef-this.yCenter);
+		//Calculate max error for this distance;
+		double xMaxError = xMeasure*this.maxLocationError/this.sensorRange;
+		double yMaxError = yMeasure*this.maxLocationError/this.sensorRange;
 		//Errors for x and y distance
-		double yError = random.nextInt(2*maxLocationError)-maxLocationError;
-		double xError = random.nextInt(2*maxLocationError)-maxLocationError;
+		double xError = random.nextDouble()*2*xMaxError-xMaxError;
+		double yError = random.nextDouble()*2*yMaxError-yMaxError;
 		//Sensor-estimated robot location
-		double yDistance = (yRef-this.yCenter)+yError; //Give this an error
 		double xDistance = (xRef-this.xCenter)+xError; //Give this an error
+		double yDistance = (yRef-this.yCenter)+yError; //Give this an error
 		double[] location = {xRef-xDistance, yRef-yDistance};
 		return location;
 	}
