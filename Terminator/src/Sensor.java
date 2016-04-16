@@ -55,7 +55,6 @@ public class Sensor extends Arc {
 
 		//Get reference points from SetupPage (user input)
 		refPoints = SetupPage.getRefPoints();
-		System.out.println("Number of Reference Points: "+refPoints.length);
 
 		//For loop to evaluate each reference point
 		for (int i=0; i<refPoints.length; i++) {

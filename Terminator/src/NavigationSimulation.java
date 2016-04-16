@@ -83,7 +83,11 @@ public class NavigationSimulation {
 					//Measure the distance from robot's location to navigation point
 					actualDistance = sensor.measureDistance(navPoint);
 					System.out.println("Actual Distance: "+actualDistance);
+					if (actualDistance <= sensorRange) {
+						robotLocation = sensor.locateRobot(navPoint); //Defines robot's coordinates based on navigation point
+					}else {
 					robotLocation = sensor.locateRobot(refPoint); //Defines robot's coordinates based on reference point
+					}
 					//Reposition sensor based on new robot location
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError);
 					//Measure angle between robot heading and navigation point
