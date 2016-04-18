@@ -43,6 +43,7 @@ public class SummaryPage extends Application{
 	private Button saveFileButton;
 	private Button Exit;
 	private double[] dataArray = {1,2,3};
+	private double time;
 
 	public SummaryPage(){
 
@@ -59,11 +60,16 @@ public class SummaryPage extends Application{
 		Integer midRangeSensing = SetupPage.getMidRangeSensing();
 		Integer closeRangeSensing = SetupPage.getCloseRangeSensing();
 		Integer maxLocationError = SetupPage.getMaxLocationError();
-		
+		//Integer robotSpeed = SetupPage
+		Integer robotSpeed = SetupPage.getRobotSpeed();
 		//Collect simulation results from NavigationSimulation
 		double navigationDistance = NavigationSimulation.getNavigationDistance();
 		double detectionErrorAverage = NavigationSimulation.getAverageDetectionError();
 		double locationErrorAverage = NavigationSimulation.getAverageLocationError();
+		
+		//time robot took to complete path
+		time = robotSpeed/navigationDistance;
+
 		
 		//create new pane for summary page
 		GridPane grid = new GridPane();

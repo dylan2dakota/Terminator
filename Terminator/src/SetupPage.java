@@ -33,6 +33,7 @@ public class SetupPage extends Application {
 	static Integer midRangeSensing;
 	static Integer closeRangeSensing;
 	static Integer maxLocationError;
+	static Integer robotSpeed;
 	static TextField numberRefPointsInput;
 	static TextField numberNavPointsInput;
 	static TextField sensorAngleInput;
@@ -41,6 +42,7 @@ public class SetupPage extends Application {
 	static TextField midRangeSensingInput;
 	static TextField closeRangeSensingInput;
 	static TextField maxLocationErrorInput;
+	static TextField robotSpeedInput;
 	static Point[] referencePoints;
 	static Point[] navigationPoints;
 	Sensor sensor;
@@ -88,6 +90,8 @@ public class SetupPage extends Application {
 		midRangeSensingInput = new TextField("0"); // Mid-Range Sensing text field
 		closeRangeSensingInput = new TextField("0"); // Close-Range Sensing text field
 		maxLocationErrorInput = new TextField("0"); // Max Location Error text field
+		robotSpeedInput = new TextField("0");// Input for robot speed
+		
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
 
@@ -101,6 +105,7 @@ public class SetupPage extends Application {
 		midRangeSensing = Integer.valueOf(midRangeSensingInput.getText());
 		closeRangeSensing = Integer.valueOf(closeRangeSensingInput.getText());
 		maxLocationError = Integer.valueOf(maxLocationErrorInput.getText());
+		robotSpeed = Integer.valueOf(robotSpeedInput.getText());
 		
 		
 		// Create Robot
@@ -150,6 +155,7 @@ public class SetupPage extends Application {
 			midRangeSensing = getMidRangeSensing();
 			closeRangeSensing = getCloseRangeSensing();
 			maxLocationError = getMaxLocationError();
+			robotSpeed = getRobotSpeed();
 			pane.getChildren().removeAll(sensor,robot);
 
 			sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing, maxLocationError);
@@ -192,8 +198,10 @@ public class SetupPage extends Application {
 		grid.add(closeRangeSensingInput, 1, 7);
 		grid.add(new Label("Max. Location Error:"), 0, 8);
 		grid.add(maxLocationErrorInput, 1, 8);
-		grid.add(startButton, 1, 9);
-		grid.add(generateButton, 0, 9);
+		grid.add(robotSpeedInput, 1, 9);
+		grid.add(new Label("Robot Speed:"), 0, 9);
+		grid.add(startButton, 1, 10);
+		grid.add(generateButton, 0, 10);
 		
 		// Create Menu Bar
 		menuBar = new MenuBar();
@@ -274,6 +282,10 @@ public class SetupPage extends Application {
 	static int getMaxLocationError() {
 		maxLocationError = Integer.valueOf(maxLocationErrorInput.getText());
 		return maxLocationError;
+	}
+	static int getRobotSpeed() {
+		robotSpeed = Integer.valueOf(robotSpeedInput.getText());
+		return robotSpeed;
 	}
 
 	// help menu for user
