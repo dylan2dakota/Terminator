@@ -1,11 +1,17 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.stage.Stage;
+
 public class NavigationSimulation{
 
 	public NavigationSimulation(){
 
 	}
+	
+	static double sumDistance;
+	static double detectionErrorAverage;
+	static double locationErrorAverage;
 
 	public void navigate() {
 		Point[] navPoints;
@@ -120,14 +126,34 @@ public class NavigationSimulation{
 			System.out.println(navigationDistance);
 		}//End for loop (navigation complete)
 		//Sum total navigation distance
-		double sumDistance = Data.sumDistance(collectNavigationDistance);
+		sumDistance = Data.sumDistance(collectNavigationDistance);
 		System.out.println("Total Navigation Distance: "+sumDistance+" units");
 		//Average detection error percentage
-		double detectionErrorAverage = Data.errorAverage(collectDetectionError);
+		detectionErrorAverage = Data.errorAverage(collectDetectionError);
 		System.out.println("Average Detection Error: "+detectionErrorAverage+"%");
 		//Average location error percentage
-		double locationErrorAverage = Data.errorAverage(collectLocationErrorPercentage);
+		locationErrorAverage = Data.errorAverage(collectLocationErrorPercentage);
 		System.out.println("Average Location Error: "+locationErrorAverage+"%");
 		
+		//Display results in Summary GUI
+		SummaryPage summaryPage = new SummaryPage();
+		Stage summaryStage = new Stage();
+		summaryPage.start(summaryStage);
 	}//End navigate() method
+	
+	//Method to collect total navigation distance
+	public static double getNavigationDistance() {
+		return sumDistance;
+	}
+	
+	//Method to collect average detection error
+	public static double getAverageDetectionError() {
+		return detectionErrorAverage;
+	}
+	
+	//Method to collect average location error
+	public static double getAverageLocationError() {
+		return locationErrorAverage;
+	}
+	
 }//end NavigationSimulation

@@ -25,16 +25,16 @@ import javafx.geometry.Insets;
  */
 public class SetupPage extends Application {
 
-	Integer numberRefPoints;
-	Integer numberNavPoints;
+	static Integer numberRefPoints;
+	static Integer numberNavPoints;
 	static Integer sensorAngle;
 	static Integer sensorRange;
 	static Integer farRangeSensing;
 	static Integer midRangeSensing;
 	static Integer closeRangeSensing;
 	static Integer maxLocationError;
-	TextField numberRefPointsInput;
-	TextField numberNavPointsInput;
+	static TextField numberRefPointsInput;
+	static TextField numberNavPointsInput;
 	static TextField sensorAngleInput;
 	static TextField sensorRangeInput;
 	static TextField farRangeSensingInput;
@@ -142,8 +142,8 @@ public class SetupPage extends Application {
 			for(int j=0;j<numberNavPoints;j++){
 				pane.getChildren().remove(navigationPoints[j]);
 			}
-			numberRefPoints = getnumberRefPoints();
-			numberNavPoints = getnumberNavPoints();
+			numberRefPoints = getNumberRefPoints();
+			numberNavPoints = getNumberNavPoints();
 			sensorAngle = getSensorAngle();
 			sensorRange = getSensorRange();
 			farRangeSensing = getFarRangeSensing();
@@ -195,7 +195,6 @@ public class SetupPage extends Application {
 		grid.add(startButton, 1, 9);
 		grid.add(generateButton, 0, 9);
 		
-
 		// Create Menu Bar
 		menuBar = new MenuBar();
 		// Create Menus
@@ -230,13 +229,13 @@ public class SetupPage extends Application {
 	}
 
 	// get user input for number of reference points
-	private int getnumberRefPoints() {
+	public static int getNumberRefPoints() {
 		numberRefPoints = Integer.valueOf(numberRefPointsInput.getText());
 		return numberRefPoints;
 	}
 	
 	// get user input for number of navigation points
-		private int getnumberNavPoints() {
+		public static int getNumberNavPoints() {
 			numberNavPoints = Integer.valueOf(numberNavPointsInput.getText());
 			return numberNavPoints;
 		}
