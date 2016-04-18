@@ -2,6 +2,9 @@
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -47,7 +50,20 @@ public class SummaryPage extends Application{
 		grid.setVgap(10);
 		grid.setHgap(5);
 		BorderPane borderPane = new BorderPane();
-		borderPane.setCenter(grid);
+		borderPane.setLeft(grid);
+		
+		
+		//create scroll pane for data
+		ScrollPane scroll = new ScrollPane();
+		borderPane.setCenter(scroll);
+		scroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scroll.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scroll.setMaxWidth(200);
+		scroll.setMaxHeight(400);
+		
+		
+		//create summary label
+		Label summaryLabel = new Label ("Summary Page");
 		
 		//create buttons
 		Button saveFileButton = new Button ("Save");
@@ -59,8 +75,8 @@ public class SummaryPage extends Application{
 		
 		//add buttons to GUI
 		grid.add(saveFileButton, 1, 9);
-		grid.add(resetButton, 1, 14);
-		grid.add(exitButton, 4, 9);
+		grid.add(resetButton, 1, 12);
+		grid.add(exitButton, 1, 14);
 		
 		//create menu bar 
 		Menu menuBar;
@@ -110,15 +126,15 @@ public class SummaryPage extends Application{
 		summaryStage.show();
 	}
 
-	private void exportFile(File file,double dataArray){
+	private void exportFile(File file,double dataArray[]){
 		try{
 			FileWriter dataOut = new FileWriter(file);
 			BufferedWriter out = new BufferedWriter(dataOut);
 			PrintWriter fileOut = new PrintWriter(out);
 			
-			for(int i=0;i<dataArray;i++){
+			for(int i=0;i<dataArray.length;i++){
 				if(dataArray[i]!=null)
-					out.write(dataArray[i]);
+					out.write(dataArray[i]+"\n");
 			}
 			out.close();
 			
@@ -126,6 +142,10 @@ public class SummaryPage extends Application{
 			System.err.println(error.getMessage());
 		}
 
+	}
+	
+	public void dataString (double dataArray[]){
+		
 	}
 	
 	private void showHelp(){
@@ -156,5 +176,7 @@ public class SummaryPage extends Application{
 		stage.show();
 		
 	}
+	
+	
 	
 }//end SummaryPage
