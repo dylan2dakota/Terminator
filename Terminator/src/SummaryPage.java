@@ -33,7 +33,8 @@ public class SummaryPage extends Application{
 	
 	private Button resetButton;
 	private Button saveFileButton;
-
+	private Button Exit;
+	
 	public SummaryPage(){
 
 	}
@@ -52,11 +53,14 @@ public class SummaryPage extends Application{
 		Button saveFileButton = new Button ("Save");
 		saveFileButton.setStyle("-fx-background-color: green;");
 		Button resetButton = new Button ("Reset");
-		resetButton.setStyle("-fx-background-color: red;");
+		resetButton.setStyle("-fx-background-color: blue;");
+		Button exitButton = new Button ("Exit");
+		exitButton.setStyle("-fx-background-color: red;");
 		
 		//add buttons to GUI
 		grid.add(saveFileButton, 1, 9);
 		grid.add(resetButton, 1, 14);
+		grid.add(exitButton, 4, 9);
 		
 		//create menu bar 
 		Menu menuBar;
@@ -79,29 +83,26 @@ public class SummaryPage extends Application{
 		// Event Handler
 		miExit.setOnAction(e -> Platform.exit());
 		miHelp.setOnAction(e -> showHelp());
+		exitButton.setOnAction(e -> Platform.exit());
 		saveFileButton.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 			
 			//set extension filter
-			FileChooser.ExtensionFilter extensionFiler = new FileChooser.ExtensionFilter("TXT file (*.txt)", "*.txt");
+			FileChooser.ExtensionFilter extensionFiler = 
+					new FileChooser.ExtensionFilter("TXT file (*.txt)", "*.txt");
 			fileChooser.getExtensionFilters().add(extensionFiler);
 			
-			try{
-				FileWriter dataOut = new FileWriter("Point_Data.txt");
-				BufferedWriter out = new BufferedWriter(dataOut);
-				PrintWriter fileOut = new PrintWriter (out);
-				
-				for(int i=0; i<dataArray;i++){
-					if(dataArray[i]=null)
-						out.write(dataArray[i]);
-				}
-				
-			}catch (Exception error){
-				System.err.println("Error"+ error.getMessage());
+			//show save file dialog
+			File file = fileChooser.showSaveDialog(summaryStage);
+			
+			if(file !=null){
+				exportFile(file, dataArray);
 			}
+		});
+//reset button handler
+		resetButton.setOnAction(e -> {
 			
 		});
-		
 		// Create a scene and place it in the stage
 		Scene summaryScene = new Scene(borderPane, 1000, 700);
 		summaryStage.setTitle("Summary");
@@ -109,7 +110,21 @@ public class SummaryPage extends Application{
 		summaryStage.show();
 	}
 
-	public void exportFile(){
+	private void exportFile(File file,double dataArray){
+		try{
+			FileWriter dataOut = new FileWriter(file);
+			BufferedWriter out = new BufferedWriter(dataOut);
+			PrintWriter fileOut = new PrintWriter(out);
+			
+			for(int i=0;i<dataArray;i++){
+				if(dataArray[i]!=null)
+					out.write(dataArray[i]);
+			}
+			out.close();
+			
+		}catch (Exception error){
+			System.err.println(error.getMessage());
+		}
 
 	}
 	

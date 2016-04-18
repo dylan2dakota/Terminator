@@ -129,32 +129,6 @@ public class SetupPage extends Application {
 		}
 		pane.getChildren().addAll(sensor, robot);
 
-		/*Handler for saveFile button*/
-		saveFileButton.setOnAction(e ->{
-			FileChooser fileChooser = new FileChooser();
-			
-			//set extension filter
-			FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT file (*.txt)","*.txt");
-			fileChooser.getExtensionFilters().add(extensionFilter);
-
-
-			/*try {
-				FileWriter dataOut = new FileWriter("Point_Data.txt");
-				BufferedWriter out = new BufferedWriter(dataOut); 
-				PrintWriter fOut = new PrintWriter(out);
-
-				for(int i=0;i</*array name.length;i++){
-					if(/*arrayname[i]=null)
-						out.write(/*arrayname[i]);
-					out.write("\n");
-				}
-				out.close();
-
-			}catch (Exception e){
-				System.err.println("Error" + e.getMessage());
-			}
-			 */
-		}
 		
 		/* (non-Javadoc)
 		 * @see javafx.application.Application#start(javafx.stage.Stage)
