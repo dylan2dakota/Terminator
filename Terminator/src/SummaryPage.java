@@ -97,7 +97,7 @@ public class SummaryPage extends Application{
 		Button saveFileButton = new Button ("Save");
 		saveFileButton.setStyle("-fx-background-color: green;");
 		Button resetButton = new Button ("Reset");
-		resetButton.setStyle("-fx-background-color: blue;");
+		resetButton.setStyle("-fx-background-color: cyan;");
 		Button exitButton = new Button ("Exit");
 		exitButton.setStyle("-fx-background-color: red;");
 
@@ -153,7 +153,7 @@ public class SummaryPage extends Application{
 		
 		// Create BorderPane to place GUI items
 		BorderPane borderPane = new BorderPane();
-		borderPane.setLeft(grid);
+		borderPane.setCenter(grid);
 		borderPane.setTop(menuBar);
 		
 		// Create a scene and place it in the stage
