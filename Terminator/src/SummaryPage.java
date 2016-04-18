@@ -15,10 +15,13 @@ import java.io.PrintWriter;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -37,6 +40,7 @@ public class SummaryPage extends Application{
 	private Button resetButton;
 	private Button saveFileButton;
 	private Button Exit;
+	private double dataArray[]={1,2,3};
 	
 	public SummaryPage(){
 
@@ -52,15 +56,18 @@ public class SummaryPage extends Application{
 		BorderPane borderPane = new BorderPane();
 		borderPane.setLeft(grid);
 		
+		final ObservableList data = FXCollections.observableArrayList();
+			
+		final ListView dataList = new ListView(data);
+		dataList.setMaxSize(200, 400);
+		dataList.setEditable(false);
 		
-		//create scroll pane for data
-		ScrollPane scroll = new ScrollPane();
-		borderPane.setCenter(scroll);
-		scroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		scroll.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		scroll.setMaxWidth(200);
-		scroll.setMaxHeight(400);
+		for(int i=0;i<dataArray.length;i++){
+			data.add(dataArray[i]);
+		}
 		
+		dataList.setItems(data);
+		grid.getChildren().add(dataList);
 		
 		//create summary label
 		Label summaryLabel = new Label ("Summary Page");
@@ -133,7 +140,7 @@ public class SummaryPage extends Application{
 			PrintWriter fileOut = new PrintWriter(out);
 			
 			for(int i=0;i<dataArray.length;i++){
-				if(dataArray[i]!=null)
+				if(dataArray[]!=null)
 					out.write(dataArray[i]+"\n");
 			}
 			out.close();
