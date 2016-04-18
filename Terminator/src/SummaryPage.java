@@ -153,7 +153,7 @@ public class SummaryPage extends Application{
 		
 		// Create BorderPane to place GUI items
 		BorderPane borderPane = new BorderPane();
-		borderPane.setCenter(grid);
+		borderPane.setLeft(grid);
 		borderPane.setTop(menuBar);
 		
 		// Create a scene and place it in the stage
