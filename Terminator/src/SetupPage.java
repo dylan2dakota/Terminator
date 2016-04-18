@@ -79,8 +79,8 @@ public class SetupPage extends Application {
 		simulationLabel.setFont(Font.font("Times New Roman", 32));
 		Label setupLabel = new Label("Setup"); // Label for Setup Page title
 		setupLabel.setFont(Font.font("Times New Roman", 32));
-		numberRefPointsInput = new TextField("0"); // Number of Points text field
-		numberNavPointsInput = new TextField("0");
+		numberRefPointsInput = new TextField("0"); // Number of Reference points text field
+		numberNavPointsInput = new TextField("0"); // Number of Navigation points text field
 		sensorAngleInput = new TextField("0"); // Sensor angle text field
 		sensorRangeInput = new TextField("0"); // Sensor range text field
 		farRangeSensingInput = new TextField("0"); // Far-Range Sensing text field
@@ -153,7 +153,6 @@ public class SetupPage extends Application {
 			maxLocationError = getMaxLocationError();
 			pane.getChildren().removeAll(sensor,robot);
 
-
 			sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing, maxLocationError);
 			robot = new Robot(100, 325, 550);
 			referencePoints = Generator.generatePoints(numberRefPoints);
@@ -222,18 +221,15 @@ public class SetupPage extends Application {
 		miAbout.setOnAction(e -> showAbout()); // Help menu item
 		//saveFileButton.setOnAction(e -> handle() );
 		
-		
 		// Create a scene and place it in the stage
-		Scene scene = new Scene(borderPane, 1000, 700);
+		Scene setupScene = new Scene(borderPane, 1000, 700);
 		borderPane.setTop(menuBar);
 		borderPane.setCenter(grid);
 		borderPane.setRight(pane);
 		primaryStage.setTitle("Setup Page");
-		primaryStage.setScene(scene);
+		primaryStage.setScene(setupScene);
 		primaryStage.show();
 	}
-
-	
 
 	// get user input for number of reference points
 	private int getnumberRefPoints() {

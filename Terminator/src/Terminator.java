@@ -13,8 +13,6 @@ public class Terminator extends Application{
 			// TODO Auto-generated method stub
 			SetupPage startPage = new SetupPage();
 			startPage.start(arg0);
-			
-			
 		}
 
 }//end Terminator

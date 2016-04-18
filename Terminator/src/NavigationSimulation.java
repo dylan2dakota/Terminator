@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class NavigationSimulation {
+public class NavigationSimulation{
 
 	public NavigationSimulation(){
 
@@ -128,5 +128,6 @@ public class NavigationSimulation {
 		//Average location error percentage
 		double locationErrorAverage = Data.errorAverage(collectLocationErrorPercentage);
 		System.out.println("Average Location Error: "+locationErrorAverage+"%");
+		
 	}//End navigate() method
 }//end NavigationSimulation
