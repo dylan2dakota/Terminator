@@ -1,6 +1,7 @@
 
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -42,6 +43,20 @@ public class SummaryPage extends Application{
 		grid.setHgap(5);
 		BorderPane borderPane = new BorderPane();
 		borderPane.setCenter(grid);
+		
+		//create menu bar 
+		Menu menuBar;
+		//create menu bar items
+		Menu menuFile, menuHelp;
+		MenuItem miExit, miHelp;
+		//create menus
+		menuBar = new Menu();
+		menuFile = new Menu("File");
+		menuFile = new Menu("Help");
+		//create menu items
+		miExit = new MenuItem("Exit");
+		
+		
 		// Create a scene and place it in the stage
 		Scene summaryScene = new Scene(borderPane, 1000, 700);
 		summaryStage.setTitle("Summary");
@@ -52,31 +67,5 @@ public class SummaryPage extends Application{
 	public void exportFile(){
 
 	}
-	public void handle(ActionEvent event){
-		FileChooser fileChooser = new FileChooser();
-
-		//set extension filter
-		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT file (*.txt)","*.txt");
-		fileChooser.getExtensionFilters().add(extensionFilter);
-
-
-		/*try {
-			FileWriter dataOut = new FileWriter("Point_Data.txt");
-			BufferedWriter out = new BufferedWriter(dataOut); 
-			PrintWriter fOut = new PrintWriter(out);
-
-			for(int i=0;i</*array name.length;i++){
-				if(/*arrayname[i]=null)
-					out.write(/*arrayname[i]);
-				out.write("\n");
-			}
-			out.close();
-
-		}catch (Exception e){
-			System.err.println("Error" + e.getMessage());
-		}
-		 */
-
-
-	}
+	
 }//end SummaryPage
