@@ -218,7 +218,6 @@ public class SetupPage extends Application {
 		// Event handlers
 		miExit.setOnAction(e -> Platform.exit()); // Exit button
 		miAbout.setOnAction(e -> showAbout()); // Help menu item
-		//saveFileButton.setOnAction(e -> handle() );
 		
 		// Create a scene and place it in the stage
 		Scene setupScene = new Scene(borderPane, 1000, 700);

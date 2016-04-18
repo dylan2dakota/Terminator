@@ -69,6 +69,7 @@ public class SummaryPage extends Application{
 			data.addAll(i,": ",+ dataArray[i]);
 		}
 		
+		//show data list
 		dataList.setOrientation(Orientation.VERTICAL);
 		dataList.setItems(data);
 		grid.getChildren().add(dataList);
@@ -92,11 +93,11 @@ public class SummaryPage extends Application{
 		
 		//create menu bar 
 		Menu menuBar;
-		//create menu bar
 		Menu menuFile, menuHelp;
 		MenuItem miExit, miHelp;
 		//create menu
 		menuBar = new Menu();
+		//create menu options
 		menuFile = new Menu("File");
 		menuHelp = new Menu("Help");
 		//create menu items
@@ -156,10 +157,6 @@ public class SummaryPage extends Application{
 			System.err.println(error.getMessage());
 		}
 
-	}
-	
-	public void dataString (double dataArray[]){
-		
 	}
 	
 	private void showHelp(){
