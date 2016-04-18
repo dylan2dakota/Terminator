@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -25,8 +26,6 @@ import javafx.scene.layout.Pane;
  */
 public class SummaryPage extends Application{
 
-	private Menu fileMenu;
-	private Menu helpMenu;
 	private Button resetButton;
 	private Button saveFileButton;
 
@@ -46,16 +45,25 @@ public class SummaryPage extends Application{
 		
 		//create menu bar 
 		Menu menuBar;
-		//create menu bar items
+		//create menu bar
 		Menu menuFile, menuHelp;
 		MenuItem miExit, miHelp;
-		//create menus
+		//create menu
 		menuBar = new Menu();
 		menuFile = new Menu("File");
-		menuFile = new Menu("Help");
+		menuHelp = new Menu("Help");
 		//create menu items
 		miExit = new MenuItem("Exit");
+		miHelp = new MenuItem("About");
+		//add items to menus
+		menuFile.getItems().addAll(miExit);
+		menuHelp.getItems().addAll(miHelp);
+		//add menu to menu bar
+		menuBar.getMenus().addAll(menuFile,menuHelp);
 		
+		// Event Handler
+		miExit.setOnAction(e -> Platform.exit());
+		miHelp.setOnAction(e -> showHelp());
 		
 		// Create a scene and place it in the stage
 		Scene summaryScene = new Scene(borderPane, 1000, 700);
@@ -66,6 +74,16 @@ public class SummaryPage extends Application{
 
 	public void exportFile(){
 
+	}
+	
+	private void showHelp(){
+		final String summaryHelp = "This page shows the summary of all the data points"
+				+"the robot found during the simulation. The data displayed on this page"
+				+"is automatically saved in the RobotData.txt file on your computer"
+				+"You can exit the simulation by clicking the exit button in the file"
+				+"option on the menu bar or restart the simulation by clicking the"
+				+"'Reset' button.";
+		
 	}
 	
 }//end SummaryPage
