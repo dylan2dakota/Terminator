@@ -15,9 +15,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 /**
  * @author Owner
@@ -26,6 +30,7 @@ import javafx.scene.layout.Pane;
  */
 public class SummaryPage extends Application{
 
+	
 	private Button resetButton;
 	private Button saveFileButton;
 
@@ -42,6 +47,16 @@ public class SummaryPage extends Application{
 		grid.setHgap(5);
 		BorderPane borderPane = new BorderPane();
 		borderPane.setCenter(grid);
+		
+		//create buttons
+		Button saveFileButton = new Button ("Save");
+		saveFileButton.setStyle("-fx-background-color: green;");
+		Button resetButton = new Button ("Reset");
+		resetButton.setStyle("-fx-background-color: red;");
+		
+		//add buttons to GUI
+		grid.add(saveFileButton, 1, 9);
+		grid.add(resetButton, 1, 14);
 		
 		//create menu bar 
 		Menu menuBar;
@@ -64,6 +79,28 @@ public class SummaryPage extends Application{
 		// Event Handler
 		miExit.setOnAction(e -> Platform.exit());
 		miHelp.setOnAction(e -> showHelp());
+		saveFileButton.setOnAction(e -> {
+			FileChooser fileChooser = new FileChooser();
+			
+			//set extension filter
+			FileChooser.ExtensionFilter extensionFiler = new FileChooser.ExtensionFilter("TXT file (*.txt)", "*.txt");
+			fileChooser.getExtensionFilters().add(extensionFiler);
+			
+			try{
+				FileWriter dataOut = new FileWriter("Point_Data.txt");
+				BufferedWriter out = new BufferedWriter(dataOut);
+				PrintWriter fileOut = new PrintWriter (out);
+				
+				for(int i=0; i<dataArray;i++){
+					if(dataArray[i]=null)
+						out.write(dataArray[i]);
+				}
+				
+			}catch (Exception error){
+				System.err.println("Error"+ error.getMessage());
+			}
+			
+		});
 		
 		// Create a scene and place it in the stage
 		Scene summaryScene = new Scene(borderPane, 1000, 700);
@@ -83,6 +120,25 @@ public class SummaryPage extends Application{
 				+"You can exit the simulation by clicking the exit button in the file"
 				+"option on the menu bar or restart the simulation by clicking the"
 				+"'Reset' button.";
+		
+		// create text label
+		Label summaryLabel = new Label();
+		summaryLabel.setWrapText(true);
+		summaryLabel.setTextAlignment(TextAlignment.CENTER);
+		summaryLabel.setFont(Font.font("Times New Roman"));
+		summaryLabel.setText(summaryHelp);
+		
+		//add Label to Stack Pane
+		StackPane helpPane = new StackPane();
+		helpPane.getChildren().add(summaryLabel);
+		
+		// create and display pane in a new stage
+		Scene scene = new Scene(helpPane, 550, 100);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.setTitle("Navigation Simulation SummaryPage");
+		stage.setResizable(false);
+		stage.show();
 		
 	}
 	

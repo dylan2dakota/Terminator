@@ -101,9 +101,7 @@ public class SetupPage extends Application {
 		midRangeSensing = Integer.valueOf(midRangeSensingInput.getText());
 		closeRangeSensing = Integer.valueOf(closeRangeSensingInput.getText());
 		maxLocationError = Integer.valueOf(maxLocationErrorInput.getText());
-		/*---need to set up button location and add in button handler---*/
-		Button saveFileButton = new Button ("Save"); // Save Data to file button
-		saveFileButton.setStyle("-fx-backgroung-color: green;");
+		
 		
 		// Create Robot
 		robot = new Robot(100, 325, 550);
@@ -222,7 +220,7 @@ public class SetupPage extends Application {
 		grid.add(maxLocationErrorInput, 1, 8);
 		grid.add(startButton, 1, 9);
 		grid.add(generateButton, 0, 9);
-		grid.add(saveFileButton, 1, 14);
+		
 
 		// Create Menu Bar
 		menuBar = new MenuBar();
