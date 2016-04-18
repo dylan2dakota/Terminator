@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -48,6 +49,7 @@ public class SummaryPage extends Application{
 
 	@Override
 	public void start(Stage summaryStage) {
+		//create new pane for summary page
 		GridPane grid = new GridPane();
 		grid.setStyle("-fx-background-color: grey;");
 		grid.setPadding(new Insets(10, 10, 10, 10));
@@ -55,19 +57,22 @@ public class SummaryPage extends Application{
 		grid.setHgap(5);
 		BorderPane borderPane = new BorderPane();
 		borderPane.setLeft(grid);
-		
+		//Initialize data list
 		final ObservableList data = FXCollections.observableArrayList();
-			
+		//create data list	
 		final ListView dataList = new ListView(data);
 		dataList.setMaxSize(200, 400);
 		dataList.setEditable(false);
 		
+		//puts array into data list
 		for(int i=0;i<dataArray.length;i++){
-			data.add(dataArray[i]);
+			data.addAll(i,": ",+ dataArray[i]);
 		}
 		
+		dataList.setOrientation(Orientation.VERTICAL);
 		dataList.setItems(data);
 		grid.getChildren().add(dataList);
+		dataList.setCenterShape(true);
 		
 		//create summary label
 		Label summaryLabel = new Label ("Summary Page");
@@ -134,11 +139,13 @@ public class SummaryPage extends Application{
 	}
 
 	private void exportFile(File file,double dataArray[]){
+		//writes each line of data into file
 		try{
 			FileWriter dataOut = new FileWriter(file);
 			BufferedWriter out = new BufferedWriter(dataOut);
 			PrintWriter fileOut = new PrintWriter(out);
 			
+			out.write("Summary page");
 			for(int i=0;i<dataArray.length;i++){
 				if(dataArray[]!=null)
 					out.write(dataArray[i]+"\n");
