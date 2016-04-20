@@ -1,8 +1,5 @@
-
-
 import java.util.ArrayList;
 import java.util.Random;
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
@@ -162,7 +159,7 @@ public class Sensor extends Arc {
 		}else if (xDistance < 0 && yDistance > 0) { //3rd quadrant
 			angle = 180 - Math.toDegrees(Math.atan(yDistance/xDistance));
 		}else { //4th quadrant
-			angle = 360 + Math.toDegrees(Math.atan(yDistance/xDistance));
+			angle = 360 - Math.toDegrees(Math.atan(yDistance/xDistance));
 		}
 		//Angle between robot's current heading and point
 		turn = angle-this.heading;
