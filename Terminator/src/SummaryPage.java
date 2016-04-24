@@ -146,7 +146,7 @@ public class SummaryPage extends Application{
 			File file = fileChooser.showSaveDialog(summaryStage);
 
 			if(file !=null){
-				exportFile(file, dataArray);
+				exportFile(file, dataArray, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed);
 			}
 		});
 		
@@ -177,7 +177,8 @@ public class SummaryPage extends Application{
 			FileWriter dataOut = new FileWriter(file);
 			BufferedWriter out = new BufferedWriter(dataOut);
 			PrintWriter fileOut = new PrintWriter(out);
-
+			//set up layout of save file
+			//display user inputs
 			out.write("Summary page");
 			out.write("User inputs:");
 			out.write("Number of Reference Points: "+ numberRefPoints);
