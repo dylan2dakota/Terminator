@@ -83,9 +83,13 @@ public class SetupPage extends Application {
 		Label setupLabel = new Label("Setup"); // Label for Setup Page title
 		setupLabel.setFont(Font.font("Times New Roman", 32));
 		numberRefPointsInput = new TextField("0"); // Number of Reference points text field
+		numberRefPointsInput.setPromptText("From 0 to 200 points.");
 		numberNavPointsInput = new TextField("0"); // Number of Navigation points text field
+		numberNavPointsInput.setPromptText("From 0 to 200 points.");
 		sensorAngleInput = new TextField("0"); // Sensor angle text field
+		sensorAngleInput.setPromptText("From 0 to 180 degrees.");
 		sensorRangeInput = new TextField("0"); // Sensor range text field
+		sensorRangeInput.setPromptText("From 20 to 650.");
 		farRangeSensingInput = new TextField("0"); // Far-Range Sensing text field
 		midRangeSensingInput = new TextField("0"); // Mid-Range Sensing text field
 		closeRangeSensingInput = new TextField("0"); // Close-Range Sensing text field
@@ -308,12 +312,6 @@ public class SetupPage extends Application {
 	}
 	static int getRobotSpeed() {
 		robotSpeed = Integer.valueOf(robotSpeedInput.getText());
-		//Bound between 1 and 10
-		if(robotSpeed<1){
-			robotSpeed = 1;
-		}else if(robotSpeed>10){
-			robotSpeed = 10;
-		}
 		return robotSpeed;
 	}
 
@@ -323,7 +321,7 @@ public class SetupPage extends Application {
 		final String helpText = "This Setup page allows the user to input Number of Points, Sensor Angle, Sensor Range, and Time Limit for the navigation simulation."
 				+ "The Number of Points defines the total number of navigation points the environment."
 				+ "The Sensor Angle defines the angle between the robot's heading and the boundary of the robot's point sensor."
-				+ "The Sensor Range defines the radius of the point sensor."
+				+ "The Sensor Range defines the radius of the point sensor. Inputs out of allowed range will be autmoatically corrected to fit."
 				+ "The Time Limit specifies the maximum amount of time the simulation can run."
 				+ "To begin the simulation, press the Start button.";
 
