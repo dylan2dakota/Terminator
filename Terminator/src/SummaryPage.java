@@ -146,7 +146,7 @@ public class SummaryPage extends Application{
 			File file = fileChooser.showSaveDialog(summaryStage);
 
 			if(file !=null){
-				exportFile(file, dataArray);
+				exportFile(file, dataArray, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed);
 			}
 		});
 		
@@ -169,14 +169,28 @@ public class SummaryPage extends Application{
 		summaryStage.show();
 	}
 
-	private void exportFile(File file,double[] dataArray){
+	private void exportFile(File file,double[] dataArray, int numberRefPoints, int numberNavPoints
+			, int sensorAngle, int farRangeSensing, int midRangeSensing, int closeRangeSensing
+			, int maxLocationError, int robotSpeed, int sensorRange){
 		//writes each line of data into file
 		try{
 			FileWriter dataOut = new FileWriter(file);
 			BufferedWriter out = new BufferedWriter(dataOut);
 			PrintWriter fileOut = new PrintWriter(out);
-
+			//set up layout of save file
+			//display user inputs
 			out.write("Summary page");
+			out.write("User inputs:");
+			out.write("Number of Reference Points: "+ numberRefPoints);
+			out.write("Number of Navigation Points: "+ numberNavPoints);
+			out.write("Sensor Angle: "+ sensorAngle);
+			out.write("Sensor Range: "+ sensorRange);
+			out.write("Far-Range Sensing Error (%): "+ farRangeSensing);
+			out.write("Mid-Range Sensing Error (%): "+ midRangeSensing);
+			out.write("Close-Range Sensing Error (%): "+ closeRangeSensing);
+			out.write("Max. Location Error: "+ maxLocationError);
+			out.write("Robot Speed: "+ robotSpeed);
+			
 			for(int i=0;i<dataArray.length;i++){
 				if(dataArray!=null)
 					out.write(dataArray[i]+"\n");
