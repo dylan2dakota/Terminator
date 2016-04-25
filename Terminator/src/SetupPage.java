@@ -83,18 +83,19 @@ public class SetupPage extends Application {
 		Label setupLabel = new Label("Setup"); // Label for Setup Page title
 		setupLabel.setFont(Font.font("Times New Roman", 32));
 		numberRefPointsInput = new TextField("0"); // Number of Reference points text field
-		numberRefPointsInput.setPromptText("From 0 to 200 points.");
+		numberRefPointsInput.setPromptText("From 0 to 200 points."); // Boundaries
 		numberNavPointsInput = new TextField("0"); // Number of Navigation points text field
-		numberNavPointsInput.setPromptText("From 0 to 200 points.");
+		numberNavPointsInput.setPromptText("From 0 to 200 points."); // Boundaries
 		sensorAngleInput = new TextField("0"); // Sensor angle text field
-		sensorAngleInput.setPromptText("From 0 to 180 degrees.");
+		sensorAngleInput.setPromptText("From 0 to 180 degrees."); // Boundaries
 		sensorRangeInput = new TextField("0"); // Sensor range text field
-		sensorRangeInput.setPromptText("From 20 to 650.");
+		sensorRangeInput.setPromptText("From 20 to 650."); // Boundaries
 		farRangeSensingInput = new TextField("0"); // Far-Range Sensing text field
 		midRangeSensingInput = new TextField("0"); // Mid-Range Sensing text field
 		closeRangeSensingInput = new TextField("0"); // Close-Range Sensing text field
 		maxLocationErrorInput = new TextField("0"); // Max Location Error text field
 		robotSpeedInput = new TextField("0");// Input for robot speed
+		//Change initial to 0
 		
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
