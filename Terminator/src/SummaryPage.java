@@ -68,7 +68,7 @@ public class SummaryPage extends Application{
 		double locationErrorAverage = NavigationSimulation.getAverageLocationError();
 		
 		//time robot took to complete path
-		time = robotSpeed/navigationDistance;
+		time = navigationDistance/robotSpeed;
 
 		
 		//create new pane for summary page
@@ -149,7 +149,7 @@ public class SummaryPage extends Application{
 				exportFile(file, dataArray, numberRefPoints, numberNavPoints, sensorAngle, 
 						farRangeSensing, midRangeSensing, closeRangeSensing, 
 						maxLocationError,detectionErrorAverage,locationErrorAverage,
-						robotSpeed, sensorRange,time);
+						robotSpeed, sensorRange,time,navigationDistance);
 			}
 		});
 		
@@ -174,7 +174,7 @@ public class SummaryPage extends Application{
 
 	private void exportFile(File file,double[] dataArray, int numberRefPoints, int numberNavPoints
 			, int sensorAngle, int farRangeSensing, int midRangeSensing, int closeRangeSensing
-			, int maxLocationError, double detectionError, double locationError, int robotSpeed, int sensorRange, double time){
+			, int maxLocationError, double detectionError, double locationError, int robotSpeed, int sensorRange, double time, double navigationDistance){
 		//writes each line of data into file
 		try{
 			FileWriter dataOut = new FileWriter(file);
@@ -182,7 +182,7 @@ public class SummaryPage extends Application{
 			PrintWriter fileOut = new PrintWriter(out);
 			//set up layout of save file
 			//display user inputs
-			out.write("Summary page\n\n");
+			out.write("\n\nSummary page\n\n");
 			out.write("User inputs:\n");
 			out.write("Number of Reference Points: "+ numberRefPoints + "\n");
 			out.write("Number of Navigation Points: "+ numberNavPoints + "\n");
@@ -192,15 +192,12 @@ public class SummaryPage extends Application{
 			out.write("Mid-Range Sensing Error (%): "+ midRangeSensing + "\n");
 			out.write("Close-Range Sensing Error (%): "+ closeRangeSensing + "\n");
 			out.write("Max. Location Error: "+ maxLocationError + "\n");
+			out.write("Robot Speed: "+ robotSpeed + "\n");
 			out.write("Detection Error Avereage: " + detectionError + "\n");
 			out.write("Location Error Avereage: " + locationError + "\n");
-			out.write("Robot Speed: "+ robotSpeed + "\n");
+			out.write("Total Navigation Distance: "+navigationDistance+"\n");
 			out.write("Estimated time to complete simulation: " + time + "\n");
 			
-			for(int i=0;i<dataArray.length;i++){
-				if(dataArray!=null)
-					out.write(dataArray[i]+"\n");
-			}
 			out.close();
 
 		}catch (Exception error){

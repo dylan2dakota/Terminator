@@ -82,19 +82,19 @@ public class SetupPage extends Application {
 		simulationLabel.setFont(Font.font("Times New Roman", 32));
 		Label setupLabel = new Label("Setup"); // Label for Setup Page title
 		setupLabel.setFont(Font.font("Times New Roman", 32));
-		numberRefPointsInput = new TextField("0"); // Number of Reference points text field
+		numberRefPointsInput = new TextField(); // Number of Reference points text field
 		numberRefPointsInput.setPromptText("From 0 to 200 points."); // Boundaries
-		numberNavPointsInput = new TextField("0"); // Number of Navigation points text field
+		numberNavPointsInput = new TextField(); // Number of Navigation points text field
 		numberNavPointsInput.setPromptText("From 0 to 200 points."); // Boundaries
-		sensorAngleInput = new TextField("0"); // Sensor angle text field
+		sensorAngleInput = new TextField(); // Sensor angle text field
 		sensorAngleInput.setPromptText("From 0 to 180 degrees."); // Boundaries
-		sensorRangeInput = new TextField("0"); // Sensor range text field
+		sensorRangeInput = new TextField(); // Sensor range text field
 		sensorRangeInput.setPromptText("From 20 to 650."); // Boundaries
-		farRangeSensingInput = new TextField("0"); // Far-Range Sensing text field
-		midRangeSensingInput = new TextField("0"); // Mid-Range Sensing text field
-		closeRangeSensingInput = new TextField("0"); // Close-Range Sensing text field
-		maxLocationErrorInput = new TextField("0"); // Max Location Error text field
-		robotSpeedInput = new TextField("0");// Input for robot speed
+		farRangeSensingInput = new TextField(); // Far-Range Sensing text field
+		midRangeSensingInput = new TextField(); // Mid-Range Sensing text field
+		closeRangeSensingInput = new TextField(); // Close-Range Sensing text field
+		maxLocationErrorInput = new TextField(); // Max Location Error text field
+		robotSpeedInput = new TextField();// Input for robot speed
 		//Change initial to 0
 		
 		Button startButton = new Button("START"); // Start Button
@@ -102,15 +102,16 @@ public class SetupPage extends Application {
 
 		Button generateButton = new Button("GENERATE"); // Generate Button
 		generateButton.setStyle("-fx-background-color: lightblue;");
-		numberRefPoints = Integer.valueOf(numberRefPointsInput.getText());
-		numberNavPoints = Integer.valueOf(numberNavPointsInput.getText());
-		sensorAngle = Integer.valueOf(sensorAngleInput.getText());
-		sensorRange = Integer.valueOf(sensorRangeInput.getText());
-		farRangeSensing = Integer.valueOf(farRangeSensingInput.getText());
-		midRangeSensing = Integer.valueOf(midRangeSensingInput.getText());
-		closeRangeSensing = Integer.valueOf(closeRangeSensingInput.getText());
-		maxLocationError = Integer.valueOf(maxLocationErrorInput.getText());
-		robotSpeed = Integer.valueOf(robotSpeedInput.getText());
+		
+		numberRefPoints = 0;
+		numberNavPoints = 0;
+		sensorAngle = 0;
+		sensorRange = 0;
+		farRangeSensing = 0;
+		midRangeSensing = 0;
+		closeRangeSensing = 0;
+		maxLocationError = 0;
+		robotSpeed = 0;
 		
 		// Create Robot
 		robot = new Robot(100, 325, 550);
