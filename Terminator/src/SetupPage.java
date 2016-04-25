@@ -83,14 +83,19 @@ public class SetupPage extends Application {
 		Label setupLabel = new Label("Setup"); // Label for Setup Page title
 		setupLabel.setFont(Font.font("Times New Roman", 32));
 		numberRefPointsInput = new TextField("0"); // Number of Reference points text field
+		numberRefPointsInput.setPromptText("From 0 to 200 points."); // Boundaries
 		numberNavPointsInput = new TextField("0"); // Number of Navigation points text field
+		numberNavPointsInput.setPromptText("From 0 to 200 points."); // Boundaries
 		sensorAngleInput = new TextField("0"); // Sensor angle text field
+		sensorAngleInput.setPromptText("From 0 to 180 degrees."); // Boundaries
 		sensorRangeInput = new TextField("0"); // Sensor range text field
+		sensorRangeInput.setPromptText("From 20 to 650."); // Boundaries
 		farRangeSensingInput = new TextField("0"); // Far-Range Sensing text field
 		midRangeSensingInput = new TextField("0"); // Mid-Range Sensing text field
 		closeRangeSensingInput = new TextField("0"); // Close-Range Sensing text field
 		maxLocationErrorInput = new TextField("0"); // Max Location Error text field
 		robotSpeedInput = new TextField("0");// Input for robot speed
+		//Change initial to 0
 		
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
@@ -106,7 +111,6 @@ public class SetupPage extends Application {
 		closeRangeSensing = Integer.valueOf(closeRangeSensingInput.getText());
 		maxLocationError = Integer.valueOf(maxLocationErrorInput.getText());
 		robotSpeed = Integer.valueOf(robotSpeedInput.getText());
-		
 		
 		// Create Robot
 		robot = new Robot(100, 325, 550);
@@ -239,24 +243,48 @@ public class SetupPage extends Application {
 	// get user input for number of reference points
 	public static int getNumberRefPoints() {
 		numberRefPoints = Integer.valueOf(numberRefPointsInput.getText());
+		//Bound between 0 and 200 points
+		if(numberRefPoints<=0){
+			numberRefPoints = 1;	//Automatically corrects to 1 point
+		}else if(numberRefPoints>200){
+			numberRefPoints = 200; //Automatically corrects to max points
+		}
 		return numberRefPoints;
 	}
 	
 	// get user input for number of navigation points
 		public static int getNumberNavPoints() {
 			numberNavPoints = Integer.valueOf(numberNavPointsInput.getText());
+			//Bound between 0 and 200 points
+			if(numberNavPoints<=0){
+				numberNavPoints = 1;	//Automatically corrects to 1 point
+			}else if(numberNavPoints>200){
+				numberNavPoints = 200; //Automatically corrects to max points
+			}
 			return numberNavPoints;
 		}
 
 	// get user input for sensor angle
 	public static int getSensorAngle() {
 		sensorAngle = Integer.valueOf(sensorAngleInput.getText());
+		//Bound between 0 and 180 degrees
+		if(sensorAngle<=0){
+			sensorAngle = 1;
+		}else if (sensorAngle>180){
+			sensorAngle = 180;
+		}
 		return sensorAngle;
 	}
 
 	// get user input for sensor range
 	public static int getSensorRange() {
 		sensorRange = Integer.valueOf(sensorRangeInput.getText());
+		//Bound between 20 and 650
+		if(sensorRange<20){
+			sensorRange = 20;
+		}else if(sensorRange>650){
+			sensorRange = 650;
+		}
 		return sensorRange;
 	}
 
@@ -294,7 +322,7 @@ public class SetupPage extends Application {
 		final String helpText = "This Setup page allows the user to input Number of Points, Sensor Angle, Sensor Range, and Time Limit for the navigation simulation."
 				+ "The Number of Points defines the total number of navigation points the environment."
 				+ "The Sensor Angle defines the angle between the robot's heading and the boundary of the robot's point sensor."
-				+ "The Sensor Range defines the radius of the point sensor."
+				+ "The Sensor Range defines the radius of the point sensor. Inputs out of allowed range will be autmoatically corrected to fit."
 				+ "The Time Limit specifies the maximum amount of time the simulation can run."
 				+ "To begin the simulation, press the Start button.";
 
