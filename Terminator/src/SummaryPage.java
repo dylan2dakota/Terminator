@@ -146,7 +146,10 @@ public class SummaryPage extends Application{
 			File file = fileChooser.showSaveDialog(summaryStage);
 
 			if(file !=null){
-				exportFile(file, dataArray, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed, robotSpeed);
+				exportFile(file, dataArray, numberRefPoints, numberNavPoints, sensorAngle, 
+						farRangeSensing, midRangeSensing, closeRangeSensing, 
+						maxLocationError,detectionErrorAverage,locationErrorAverage,
+						robotSpeed, sensorRange,time);
 			}
 		});
 		
@@ -171,7 +174,7 @@ public class SummaryPage extends Application{
 
 	private void exportFile(File file,double[] dataArray, int numberRefPoints, int numberNavPoints
 			, int sensorAngle, int farRangeSensing, int midRangeSensing, int closeRangeSensing
-			, int maxLocationError, int robotSpeed, int sensorRange){
+			, int maxLocationError, double detectionError, double locationError, int robotSpeed, int sensorRange, double time){
 		//writes each line of data into file
 		try{
 			FileWriter dataOut = new FileWriter(file);
@@ -179,17 +182,20 @@ public class SummaryPage extends Application{
 			PrintWriter fileOut = new PrintWriter(out);
 			//set up layout of save file
 			//display user inputs
-			out.write("Summary page");
-			out.write("User inputs:");
-			out.write("Number of Reference Points: "+ numberRefPoints);
-			out.write("Number of Navigation Points: "+ numberNavPoints);
-			out.write("Sensor Angle: "+ sensorAngle);
-			out.write("Sensor Range: "+ sensorRange);
-			out.write("Far-Range Sensing Error (%): "+ farRangeSensing);
-			out.write("Mid-Range Sensing Error (%): "+ midRangeSensing);
-			out.write("Close-Range Sensing Error (%): "+ closeRangeSensing);
-			out.write("Max. Location Error: "+ maxLocationError);
-			out.write("Robot Speed: "+ robotSpeed);
+			out.write("Summary page\n\n");
+			out.write("User inputs:\n");
+			out.write("Number of Reference Points: "+ numberRefPoints + "\n");
+			out.write("Number of Navigation Points: "+ numberNavPoints + "\n");
+			out.write("Sensor Angle: "+ sensorAngle + "\n");
+			out.write("Sensor Range: "+ sensorRange + "\n");
+			out.write("Far-Range Sensing Error (%): "+ farRangeSensing + "\n");
+			out.write("Mid-Range Sensing Error (%): "+ midRangeSensing + "\n");
+			out.write("Close-Range Sensing Error (%): "+ closeRangeSensing + "\n");
+			out.write("Max. Location Error: "+ maxLocationError + "\n");
+			out.write("Detection Error Avereage: " + detectionError + "\n");
+			out.write("Location Error Avereage: " + locationError + "\n");
+			out.write("Robot Speed: "+ robotSpeed + "\n");
+			out.write("Estimated time to complete simulation: " + time + "\n");
 			
 			for(int i=0;i<dataArray.length;i++){
 				if(dataArray!=null)
@@ -206,7 +212,7 @@ public class SummaryPage extends Application{
 	private void showHelp(){
 		final String summaryHelp = "This page shows the summary of all the data points"
 				+"the robot found during the simulation. The data displayed on this page"
-				+"is automatically saved in the RobotData.txt file on your computer"
+				+"is automatically saved in the RobotData.txt file on your computer. "
 				+"You can exit the simulation by clicking the exit button in the file"
 				+"option on the menu bar or restart the simulation by clicking the"
 				+"'Reset' button.";
