@@ -176,14 +176,12 @@ public class SetupPage extends Application {
 			Boolean validFarError = checkValidNumber(farRangeSensing,0,100);
 			Boolean validMidError = checkValidNumber(midRangeSensing,0,100);
 			Boolean validCloseError = checkValidNumber(closeRangeSensing,0,100);
-			Boolean validLocationError = checkValidNumber(maxLocationError,0,100);
+			Boolean validLocationError = checkValidNumber(maxLocationError,0,sensorRange);
 			Boolean validSpeed = checkValidNumber(robotSpeed,0,20);
 
 			//If any boundary is violated, display error message. Otherwise continue normally.
-			if(validRef==false || validNav==false || validAngle==false || validRange==false || validFarError==false ||
-					validMidError==false || validCloseError==false || validLocationError==false || validSpeed==false){
-				boundaryError();
-			}else{
+			if(validRef==true && validNav==true && validAngle==true && validRange==true && validFarError==true &&
+					validMidError==true && validCloseError==true && validLocationError==true && validSpeed==true){
 				sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing, maxLocationError);
 				robot = new Robot(100, 325, 550);
 				referencePoints = Generator.generatePoints(numberRefPoints);
@@ -197,6 +195,8 @@ public class SetupPage extends Application {
 					navigationPoints[l].setFill(Color.RED);
 					pane.getChildren().add(navigationPoints[l]);
 				}
+			}else{
+				boundaryError();
 			}
 
 		});
