@@ -113,7 +113,7 @@ public class NavigationSimulation{
 					heading = heading + turnAngle; //Redefine Robot heading			
 					//Reposition Sensor
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError);
-					//Remeasure distance to navigation point
+					//Re-measure distance to navigation point
 					navigationDistance = sensor.measureDistance(navPoint);
 				}
 			}//End while loop (move to next point)
