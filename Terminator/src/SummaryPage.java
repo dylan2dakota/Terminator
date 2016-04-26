@@ -185,19 +185,33 @@ public class SummaryPage extends Application{
 			//set up layout of save file
 			//display user inputs
 			out.write("\n\nSummary page\n\n");
+			out.newLine();
 			out.write("User inputs:\n");
+			out.newLine();
 			out.write("Number of Reference Points: "+ numberRefPoints + "\n");
+			out.newLine();
 			out.write("Number of Navigation Points: "+ numberNavPoints + "\n");
+			out.newLine();
 			out.write("Sensor Angle: "+ sensorAngle + "\n");
+			out.newLine();
 			out.write("Sensor Range: "+ sensorRange + "\n");
+			out.newLine();
 			out.write("Far-Range Sensing Error (%): "+ farRangeSensing + "\n");
+			out.newLine();
 			out.write("Mid-Range Sensing Error (%): "+ midRangeSensing + "\n");
+			out.newLine();
 			out.write("Close-Range Sensing Error (%): "+ closeRangeSensing + "\n");
+			out.newLine();
 			out.write("Max. Location Error: "+ maxLocationError + "\n");
+			out.newLine();
 			out.write("Robot Speed: "+ robotSpeed + "\n");
+			out.newLine();
 			out.write("Detection Error Average: " + detectionError + "\n");
+			out.newLine();
 			out.write("Location Error Average: " + locationError + "\n");
+			out.newLine();
 			out.write("Total Navigation Distance: "+navigationDistance+"\n");
+			out.newLine();
 			out.write("Estimated time to complete simulation: " + time + "\n");
 			out.close();
 
