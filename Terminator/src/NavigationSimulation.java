@@ -12,7 +12,15 @@ public class NavigationSimulation{
 	static double sumDistance;
 	static double detectionErrorAverage;
 	static double locationErrorAverage;
-
+	
+	/**
+	 * Executes the simulation of the navigation.
+	 * Uses methods from the Sensor and Controller classes to change
+	 * the robot location/orientation.
+	 * Calculates data on sensor error once the navigation is complete.
+	 *
+	 * @author Dylan Cox
+	 */
 	public void navigate() {
 		Point[] navPoints;
 		double[] robotLocation = new double[2];
