@@ -91,11 +91,16 @@ public class SetupPage extends Application {
 		sensorRangeInput = new TextField(); // Sensor range text field
 		sensorRangeInput.setPromptText("From 20 to 650."); // Boundaries
 		farRangeSensingInput = new TextField(); // Far-Range Sensing text field
+		farRangeSensingInput.setPromptText("From 0 to 100.");//Boundaries
 		midRangeSensingInput = new TextField(); // Mid-Range Sensing text field
+		midRangeSensingInput.setPromptText("From 0 to 100.");//Boundaries
 		closeRangeSensingInput = new TextField(); // Close-Range Sensing text field
+		closeRangeSensingInput.setPromptText("From 0 to 100.");//Boundaries
 		maxLocationErrorInput = new TextField(); // Max Location Error text field
+		maxLocationErrorInput.setPromptText("Less then Sensor Range.");//Boundaries
 		robotSpeedInput = new TextField();// Input for robot speed
-		//Change initial to 0
+		robotSpeedInput.setPromptText("From 0 to 20.");//Boundaries
+		
 		
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
@@ -244,48 +249,24 @@ public class SetupPage extends Application {
 	// get user input for number of reference points
 	public static int getNumberRefPoints() {
 		numberRefPoints = Integer.valueOf(numberRefPointsInput.getText());
-		//Bound between 0 and 200 points
-		if(numberRefPoints<=0){
-			numberRefPoints = 1;	//Automatically corrects to 1 point
-		}else if(numberRefPoints>200){
-			numberRefPoints = 200; //Automatically corrects to max points
-		}
 		return numberRefPoints;
 	}
 	
 	// get user input for number of navigation points
 		public static int getNumberNavPoints() {
 			numberNavPoints = Integer.valueOf(numberNavPointsInput.getText());
-			//Bound between 0 and 200 points
-			if(numberNavPoints<=0){
-				numberNavPoints = 1;	//Automatically corrects to 1 point
-			}else if(numberNavPoints>200){
-				numberNavPoints = 200; //Automatically corrects to max points
-			}
 			return numberNavPoints;
 		}
 
 	// get user input for sensor angle
 	public static int getSensorAngle() {
 		sensorAngle = Integer.valueOf(sensorAngleInput.getText());
-		//Bound between 0 and 180 degrees
-		if(sensorAngle<=0){
-			sensorAngle = 1;
-		}else if (sensorAngle>180){
-			sensorAngle = 180;
-		}
 		return sensorAngle;
 	}
 
 	// get user input for sensor range
 	public static int getSensorRange() {
 		sensorRange = Integer.valueOf(sensorRangeInput.getText());
-		//Bound between 20 and 650
-		if(sensorRange<20){
-			sensorRange = 20;
-		}else if(sensorRange>650){
-			sensorRange = 650;
-		}
 		return sensorRange;
 	}
 
