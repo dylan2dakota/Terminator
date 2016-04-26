@@ -89,7 +89,7 @@ public class SetupPage extends Application {
 		sensorAngleInput = new TextField(); // Sensor angle text field
 		sensorAngleInput.setPromptText("From 0 to 180 degrees."); // Boundaries
 		sensorRangeInput = new TextField(); // Sensor range text field
-		sensorRangeInput.setPromptText("From 20 to 650."); // Boundaries
+		sensorRangeInput.setPromptText("From 0 to 650."); // Boundaries
 		farRangeSensingInput = new TextField(); // Far-Range Sensing text field
 		farRangeSensingInput.setPromptText("From 0 to 100.");//Boundaries
 		midRangeSensingInput = new TextField(); // Mid-Range Sensing text field
@@ -97,7 +97,7 @@ public class SetupPage extends Application {
 		closeRangeSensingInput = new TextField(); // Close-Range Sensing text field
 		closeRangeSensingInput.setPromptText("From 0 to 100.");//Boundaries
 		maxLocationErrorInput = new TextField(); // Max Location Error text field
-		maxLocationErrorInput.setPromptText("Less then Sensor Range.");//Boundaries
+		maxLocationErrorInput.setPromptText("Less than Sensor Range.");//Boundaries
 		robotSpeedInput = new TextField();// Input for robot speed
 		robotSpeedInput.setPromptText("From 0 to 20.");//Boundaries
 		
@@ -167,19 +167,36 @@ public class SetupPage extends Application {
 			maxLocationError = getMaxLocationError();
 			robotSpeed = getRobotSpeed();
 			pane.getChildren().removeAll(sensor,robot);
+			
+			//Check Boundaries of all user inputs
+			Boolean validRef = checkValidNumber(numberRefPoints,0,200);
+			Boolean validNav = checkValidNumber(numberNavPoints,0,200);
+			Boolean validAngle = checkValidNumber(sensorAngle,0,180);
+			Boolean validRange = checkValidNumber(sensorRange,0,650);
+			Boolean validFarError = checkValidNumber(farRangeSensing,0,100);
+			Boolean validMidError = checkValidNumber(midRangeSensing,0,100);
+			Boolean validCloseError = checkValidNumber(closeRangeSensing,0,100);
+			Boolean validLocationError = checkValidNumber(maxLocationError,0,100);
+			Boolean validSpeed = checkValidNumber(robotSpeed,0,20);
 
-			sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing, maxLocationError);
-			robot = new Robot(100, 325, 550);
-			referencePoints = Generator.generatePoints(numberRefPoints);
-			navigationPoints = Generator.generatePoints(numberNavPoints);
+			//If any boundary is violated, display error message. Otherwise continue normally.
+			if(validRef==false || validNav==false || validAngle==false || validRange==false || validFarError==false ||
+					validMidError==false || validCloseError==false || validLocationError==false || validSpeed==false){
+				boundaryError();
+			}else{
+				sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing, maxLocationError);
+				robot = new Robot(100, 325, 550);
+				referencePoints = Generator.generatePoints(numberRefPoints);
+				navigationPoints = Generator.generatePoints(numberNavPoints);
 
-			pane.getChildren().addAll(sensor,robot);
-			for(int k=0;k<numberRefPoints;k++){
-				pane.getChildren().add(referencePoints[k]);
-			}
-			for(int l=0;l<numberNavPoints;l++){
-				navigationPoints[l].setFill(Color.RED);
-				pane.getChildren().add(navigationPoints[l]);
+				pane.getChildren().addAll(sensor,robot);
+				for(int k=0;k<numberRefPoints;k++){
+					pane.getChildren().add(referencePoints[k]);
+				}
+				for(int l=0;l<numberNavPoints;l++){
+					navigationPoints[l].setFill(Color.RED);
+					pane.getChildren().add(navigationPoints[l]);
+				}
 			}
 
 		});
@@ -296,6 +313,35 @@ public class SetupPage extends Application {
 	static int getRobotSpeed() {
 		robotSpeed = Integer.valueOf(robotSpeedInput.getText());
 		return robotSpeed;
+	}
+	
+	// check user inputs against boundaries
+	public static boolean checkValidNumber(Integer input, double lowerBound, double upperBound) {
+		//Make sure number is within boundary limits
+		if (input >= lowerBound && input <= upperBound) {
+			return true;
+		} else{ return false; }
+	}
+	//Message box is displayed if a boundary is violated
+	public void boundaryError(){
+		
+		//Create Label
+		final String errorText = "Please check values and enter valid integers only.";
+		Label boundLabel = new Label();
+		boundLabel.setTextAlignment(TextAlignment.CENTER);
+		boundLabel.setFont(Font.font("Times New Roman", 14));
+		boundLabel.setText(errorText);
+		
+		//Add Label to pane and display in a new window
+		StackPane errorPane = new StackPane();
+		errorPane.getChildren().add(boundLabel);
+		Scene scene = new Scene(errorPane,400,50);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.setTitle("An Input Error Has Occured!");
+		stage.setResizable(false);
+		stage.show();
+		
 	}
 
 	// help menu for user
