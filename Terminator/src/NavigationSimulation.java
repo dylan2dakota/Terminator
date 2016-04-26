@@ -53,7 +53,6 @@ public class NavigationSimulation{
 
 			while (navigationDistance >= 1) {
 				loops++;
-				System.out.println(loops);
 				//Search for reference points (includes sensor detection error)
 				ArrayList<Point> pointsDetected = sensor.detectPoints();
 				//Actual number of reference points in sensor area (doesn't include sensor detection error)
@@ -76,19 +75,13 @@ public class NavigationSimulation{
 					if (robotLocation[1] <= 0){heading = randomAngle.nextInt(178)+181;}
 					//Reposition sensor
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError);
-					System.out.println("None Detected");
 					//Measure distance from robot to point
 					navigationDistance = sensor.measureDistance(navPoint);
-					System.out.println("Distance to Navigation Point: "+navigationDistance);
 				} else {
-					System.out.println("Number of Points detected: "+pointsDetected.size());
-					System.out.println("Location: "+robotLocation[0]+", "+robotLocation[1]);
-					System.out.println("Heading: "+heading);
 					//Determine Robot's position based on reference point
 					Point refPoint = pointsDetected.get(0); //Defines coordinates of reference point
 					//Measure the distance from robot's location to navigation point
 					actualDistance = sensor.measureDistance(navPoint);
-					System.out.println("Actual Distance: "+actualDistance);
 					if (actualDistance <= sensorRange) {
 						robotLocation = sensor.locateRobot(navPoint); //Defines robot's coordinates based on navigation point
 					}else {
@@ -98,23 +91,18 @@ public class NavigationSimulation{
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError);
 					//Measure angle between robot heading and navigation point
 					double turnAngle = sensor.measureAngle(navPoint);
-					System.out.println("Turn Angle: "+turnAngle);
 					//Measure distance from robot's sensor-estimated location to navigation point
 					navigationDistance = sensor.measureDistance(navPoint);
-					System.out.println("Distance to Navigation Point: "+navigationDistance);
 					//Calculate Sensor location error and error percentage
 					locationError = Math.abs(actualDistance-navigationDistance);
 					locationErrorPercentage = Math.abs((actualDistance-navigationDistance)/actualDistance)*100;
 					collectLocationErrorPercentage.add(locationErrorPercentage);
-					System.out.println("Location Error: "+locationError+" ("+locationErrorPercentage+"%)");
 					//Move robot toward navigation point (half the measured navigation distance)
 					robotLocation = Controller.move(robotLocation, heading, turnAngle, navigationDistance);
 					//Collect distance navigated
 					collectNavigationDistance.add(navigationDistance/2);
-					System.out.println("New Location: "+robotLocation[0]+", "+robotLocation[1]);
 					//Determine new heading
 					heading = heading + turnAngle; //Redefine Robot heading			
-					System.out.println("New heading: "+heading);
 					//Reposition Sensor
 					sensor = new Sensor(robotLocation[0], robotLocation[1], sensorRange, sensorAngle, heading, closeError, midError, farError, maxLocationError);
 					//Remeasure distance to navigation point
@@ -122,18 +110,13 @@ public class NavigationSimulation{
 				}
 			}//End while loop (move to next point)
 			int numFound = i+1;
-			System.out.println("Found "+numFound+" points!");
-			System.out.println(navigationDistance);
 		}//End for loop (navigation complete)
 		//Sum total navigation distance
 		sumDistance = Data.sumDistance(collectNavigationDistance);
-		System.out.println("Total Navigation Distance: "+sumDistance+" units");
 		//Average detection error percentage
 		detectionErrorAverage = Data.errorAverage(collectDetectionError);
-		System.out.println("Average Detection Error: "+detectionErrorAverage+"%");
 		//Average location error percentage
 		locationErrorAverage = Data.errorAverage(collectLocationErrorPercentage);
-		System.out.println("Average Location Error: "+locationErrorAverage+"%");
 		
 		//Display results in Summary GUI
 		SummaryPage summaryPage = new SummaryPage();

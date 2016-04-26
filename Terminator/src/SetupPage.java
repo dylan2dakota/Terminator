@@ -89,7 +89,7 @@ public class SetupPage extends Application {
 		sensorAngleInput = new TextField(); // Sensor angle text field
 		sensorAngleInput.setPromptText("From 0 to 180 degrees."); // Boundaries
 		sensorRangeInput = new TextField(); // Sensor range text field
-		sensorRangeInput.setPromptText("From 0 to 650."); // Boundaries
+		sensorRangeInput.setPromptText("From 0 to 400."); // Boundaries
 		farRangeSensingInput = new TextField(); // Far-Range Sensing text field
 		farRangeSensingInput.setPromptText("From 0 to 100.");//Boundaries
 		midRangeSensingInput = new TextField(); // Mid-Range Sensing text field
@@ -100,14 +100,14 @@ public class SetupPage extends Application {
 		maxLocationErrorInput.setPromptText("Less than Sensor Range.");//Boundaries
 		robotSpeedInput = new TextField();// Input for robot speed
 		robotSpeedInput.setPromptText("From 0 to 20.");//Boundaries
-		
-		
+
+
 		Button startButton = new Button("START"); // Start Button
 		startButton.setStyle("-fx-background-color: lightgreen;");
 
 		Button generateButton = new Button("GENERATE"); // Generate Button
 		generateButton.setStyle("-fx-background-color: lightblue;");
-		
+
 		numberRefPoints = 0;
 		numberNavPoints = 0;
 		sensorAngle = 0;
@@ -117,12 +117,12 @@ public class SetupPage extends Application {
 		closeRangeSensing = 0;
 		maxLocationError = 0;
 		robotSpeed = 0;
-		
+
 		// Create Robot
 		robot = new Robot(100, 325, 550);
 
 		initialHeading = 90;
-		
+
 		// Create Sensor
 		sensor = new Sensor(375, 600, sensorRange, sensorAngle, initialHeading, closeRangeSensing, midRangeSensing, farRangeSensing, maxLocationError);
 
@@ -144,19 +144,27 @@ public class SetupPage extends Application {
 		}
 		pane.getChildren().addAll(sensor, robot);
 
-		
+
 		/* (non-Javadoc)
 		 * @see javafx.application.Application#start(javafx.stage.Stage)
 		 * 
 		 * Handler for generate button
 		 */
 		generateButton.setOnAction(e -> {
-			for(int i=0;i<numberRefPoints;i++){
-				pane.getChildren().remove(referencePoints[i]);
+			if (numberRefPoints > 0) {
+				//Remove any previously generated reference points
+				for(int i=0;i<numberRefPoints;i++){
+					pane.getChildren().remove(referencePoints[i]);
+				}
 			}
-			for(int j=0;j<numberNavPoints;j++){
-				pane.getChildren().remove(navigationPoints[j]);
+			if (numberNavPoints > 0) {
+				//Remove any previously generated navigation points
+				for(int j=0;j<numberNavPoints;j++){
+					pane.getChildren().remove(navigationPoints[j]);
+				}
 			}
+			
+			//Assign values to variables
 			numberRefPoints = getNumberRefPoints();
 			numberNavPoints = getNumberNavPoints();
 			sensorAngle = getSensorAngle();
@@ -167,12 +175,12 @@ public class SetupPage extends Application {
 			maxLocationError = getMaxLocationError();
 			robotSpeed = getRobotSpeed();
 			pane.getChildren().removeAll(sensor,robot);
-			
+
 			//Check Boundaries of all user inputs
 			Boolean validRef = checkValidNumber(numberRefPoints,0,200);
 			Boolean validNav = checkValidNumber(numberNavPoints,0,200);
 			Boolean validAngle = checkValidNumber(sensorAngle,0,180);
-			Boolean validRange = checkValidNumber(sensorRange,0,650);
+			Boolean validRange = checkValidNumber(sensorRange,0,400);
 			Boolean validFarError = checkValidNumber(farRangeSensing,0,100);
 			Boolean validMidError = checkValidNumber(midRangeSensing,0,100);
 			Boolean validCloseError = checkValidNumber(closeRangeSensing,0,100);
@@ -197,10 +205,20 @@ public class SetupPage extends Application {
 				}
 			}else{
 				boundaryError();
+				//Reinitialize variables to zero
+				numberRefPoints = 0;
+				numberNavPoints = 0;
+				sensorAngle = 0;
+				sensorRange = 0;
+				farRangeSensing = 0;
+				midRangeSensing = 0;
+				closeRangeSensing = 0;
+				maxLocationError = 0;
+				robotSpeed = 0;
 			}
 
 		});
-		
+
 		startButton.setOnAction(e -> {
 			NavigationSimulation simulation = new NavigationSimulation();
 			simulation.navigate();
@@ -229,7 +247,7 @@ public class SetupPage extends Application {
 		grid.add(new Label("Robot Speed:"), 0, 9);
 		grid.add(startButton, 1, 10);
 		grid.add(generateButton, 0, 10);
-		
+
 		// Create Menu Bar
 		menuBar = new MenuBar();
 		// Create Menus
@@ -252,7 +270,7 @@ public class SetupPage extends Application {
 		// Event handlers
 		miExit.setOnAction(e -> Platform.exit()); // Exit button
 		miAbout.setOnAction(e -> showAbout()); // Help menu item
-		
+
 		// Create a scene and place it in the stage
 		Scene setupScene = new Scene(borderPane, 1000, 700);
 		borderPane.setTop(menuBar);
@@ -260,6 +278,8 @@ public class SetupPage extends Application {
 		borderPane.setRight(pane);
 		primaryStage.setTitle("Setup Page");
 		primaryStage.setScene(setupScene);
+		primaryStage.setResizable(false);
+		primaryStage.sizeToScene();
 		primaryStage.show();
 	}
 
@@ -268,12 +288,12 @@ public class SetupPage extends Application {
 		numberRefPoints = Integer.valueOf(numberRefPointsInput.getText());
 		return numberRefPoints;
 	}
-	
+
 	// get user input for number of navigation points
-		public static int getNumberNavPoints() {
-			numberNavPoints = Integer.valueOf(numberNavPointsInput.getText());
-			return numberNavPoints;
-		}
+	public static int getNumberNavPoints() {
+		numberNavPoints = Integer.valueOf(numberNavPointsInput.getText());
+		return numberNavPoints;
+	}
 
 	// get user input for sensor angle
 	public static int getSensorAngle() {
@@ -314,7 +334,7 @@ public class SetupPage extends Application {
 		robotSpeed = Integer.valueOf(robotSpeedInput.getText());
 		return robotSpeed;
 	}
-	
+
 	// check user inputs against boundaries
 	public static boolean checkValidNumber(Integer input, double lowerBound, double upperBound) {
 		//Make sure number is within boundary limits
@@ -324,14 +344,14 @@ public class SetupPage extends Application {
 	}
 	//Message box is displayed if a boundary is violated
 	public void boundaryError(){
-		
+
 		//Create Label
 		final String errorText = "Please check values and enter valid integers only.";
 		Label boundLabel = new Label();
 		boundLabel.setTextAlignment(TextAlignment.CENTER);
 		boundLabel.setFont(Font.font("Times New Roman", 14));
 		boundLabel.setText(errorText);
-		
+
 		//Add Label to pane and display in a new window
 		StackPane errorPane = new StackPane();
 		errorPane.getChildren().add(boundLabel);
@@ -341,51 +361,68 @@ public class SetupPage extends Application {
 		stage.setTitle("An Input Error Has Occured!");
 		stage.setResizable(false);
 		stage.show();
-		
+
 	}
 
 	// help menu for user
 	private void showAbout() {
 
-		final String helpText = "This Setup page allows the user to input Number of Points, Sensor Angle, Sensor Range, and Time Limit for the navigation simulation."
-				+ "The Number of Points defines the total number of navigation points the environment."
-				+ "The Sensor Angle defines the angle between the robot's heading and the boundary of the robot's point sensor."
-				+ "The Sensor Range defines the radius of the point sensor. Inputs out of allowed range will be autmoatically corrected to fit."
-				+ "The Time Limit specifies the maximum amount of time the simulation can run."
-				+ "To begin the simulation, press the Start button.";
+		final String helpText = "	The purpose of this program is to observe the effects of various system parameters "
+				+ "on the performance of a waypoint-navigating robot. "
+				+ "This Setup Page allows the user to input system parameters for the navigation simulation. "
+				+ "The Number of Reference Points defines the total number of reference points in the environment. "
+				+ "Reference points are used by the Sensor to determine the robot's coordinates within the environment. "
+				+ "The Number of Navigation Points defines the total number of navigation points in the environment. "
+				+ "When the simulation is started, the robot will navigate between these points (in no specific order). "
+				+ "The Sensor Angle defines the angle in degrees between the robot's heading and the boundary of the robot's point sensor. "
+				+ "The Sensor Range defines the radius of the point sensor. "
+				+ "The Sensor Range is divided equally into three zones: Far, Mid, and Close-Range. "
+				+ "The Far-Range Sensing Error specifies the percentage chance of the Sensor failing to detect a reference point within the Far-Range. "
+				+ "The Mid and Close-Range Sensing Errors have the same function, corresponding to those ranges. "
+				+ "The Maximum Location Error specifies the max amount of unit error that can be experienced at the farthest scope of the Sensor Range "
+				+ "(meaning the max error decreases as the distance to the detected reference point decreases). "
+				+ "The Robot Speed specifies the constant speed of the robot during navigation. This is used to calculate the total navigation time. "
+				+ "In order to produce accurate results, the user should use consistant units for distance and speed units (i.e. ft, m, ft/s, m/s). "
+				+ "Once the Generate button is pressed, a preview of the environment will be displayed on the right-hand side of the window. "
+				+ "To begin the simulation, press the Start button. "
+				+ "The simulation will then execute, and a Summary Page will display the performance results, "
+				+ "at which time the user will be given the option to save the results to a text file.";
 
 		// Create the text label
 		Label helpLabel = new Label();
 		helpLabel.setWrapText(true);
-		helpLabel.setTextAlignment(TextAlignment.CENTER);
+		helpLabel.setTextAlignment(TextAlignment.LEFT);
 		helpLabel.setFont(Font.font("Times New Roman", 14));
 		helpLabel.setText(helpText);
 
 		// Add the label to a StackPane
 		StackPane aboutPane = new StackPane();
+		aboutPane.setPadding(new Insets(10,10,10,10));
 		aboutPane.getChildren().add(helpLabel);
+		aboutPane.setPrefSize(400, 400);
 
 		// Create and display said the pane in a new stage
-		Scene scene = new Scene(aboutPane, 550, 100);
+		Scene scene = new Scene(aboutPane, 700, 310);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.setTitle("Navigation Simulation Setup");
 		stage.setResizable(false);
+		stage.sizeToScene();
 		stage.show();
 	}
 
 	public static Point[] getNavPoints() {
 		return navigationPoints;
 	}
-	
+
 	public static Point[] getRefPoints() {
 		return referencePoints;
 	}
-	
+
 	public static int getMapWidth() {
 		return mapWidth;
 	}
-	
+
 	public static int getMapHeight() {
 		return mapHeight;
 	}

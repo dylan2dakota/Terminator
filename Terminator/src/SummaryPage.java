@@ -1,24 +1,17 @@
-
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
@@ -26,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -38,11 +30,9 @@ import javafx.scene.text.TextAlignment;
  */
 public class SummaryPage extends Application{
 
-
 	private Button resetButton;
 	private Button saveFileButton;
 	private Button Exit;
-	private double[] dataArray = {1,2,3};
 	private double time;
 
 	public SummaryPage(){
@@ -66,38 +56,48 @@ public class SummaryPage extends Application{
 		double navigationDistance = NavigationSimulation.getNavigationDistance();
 		double detectionErrorAverage = NavigationSimulation.getAverageDetectionError();
 		double locationErrorAverage = NavigationSimulation.getAverageLocationError();
-		
+
 		//time robot took to complete path
 		time = navigationDistance/robotSpeed;
 
-		
 		//create new pane for summary page
 		GridPane grid = new GridPane();
-		grid.setStyle("-fx-background-color: grey;");
+		grid.setStyle("-fx-background-color: lightgrey;");
 		grid.setPadding(new Insets(10, 10, 10, 10));
 		grid.setVgap(10);
 		grid.setHgap(5);
-		
+
 		//Initialize data list
 		final ObservableList data = FXCollections.observableArrayList();
+		//Add simulation results to data
+		data.add("Number of Reference Points: "+numberRefPoints);
+		data.add("Number of Navigation Points: "+numberNavPoints);
+		data.add("Sensor Angle: "+sensorAngle);
+		data.add("Sensor Range: "+sensorRange);
+		data.add("Far-Range Sensing Error: "+farRangeSensing);
+		data.add("Mid-Range Sensing Error: "+midRangeSensing);
+		data.add("Close-Range Sensing Error: "+closeRangeSensing);
+		data.add("Max Location Error: "+maxLocationError);
+		data.add("Robot Speed: "+robotSpeed);
+		data.add("Detection Error Average: "+detectionErrorAverage);
+		data.add("Location Error Average: "+locationErrorAverage);
+		data.add("Total Navigation Distance: "+navigationDistance);
+		data.add("Estimated time to complete simulation: "+time);
 		//create data list	
 		final ListView dataList = new ListView(data);
-		dataList.setMaxSize(200, 400);
+		dataList.setPrefSize(380, 310);
 		dataList.setEditable(false);
-
-		//puts array into data list
-		for(int i=0;i<dataArray.length;i++){
-			data.addAll(i,": ",+ dataArray[i]);
-		}
 
 		//show data list
 		dataList.setOrientation(Orientation.VERTICAL);
 		dataList.setItems(data);
-		grid.getChildren().add(dataList);
+		grid.add(dataList, 0, 3);
 		dataList.setCenterShape(true);
 
 		//create summary label
 		Label summaryLabel = new Label ("Summary Page");
+		summaryLabel.setFont(Font.font("Times New Roman", 32));
+		grid.add(summaryLabel, 0, 1);
 
 		//create buttons
 		Button saveFileButton = new Button ("Save");
@@ -108,9 +108,9 @@ public class SummaryPage extends Application{
 		exitButton.setStyle("-fx-background-color: red;");
 
 		//add buttons to GUI
-		grid.add(saveFileButton, 1, 9);
-		grid.add(resetButton, 1, 12);
-		grid.add(exitButton, 1, 14);
+		grid.add(saveFileButton, 0, 5);
+		grid.add(resetButton, 0, 7);
+		grid.add(exitButton, 0, 9);
 
 		//create menu bar 
 		MenuBar menuBar;
@@ -146,33 +146,35 @@ public class SummaryPage extends Application{
 			File file = fileChooser.showSaveDialog(summaryStage);
 
 			if(file !=null){
-				exportFile(file, dataArray, numberRefPoints, numberNavPoints, sensorAngle, 
+				exportFile(file, numberRefPoints, numberNavPoints, sensorAngle, 
 						farRangeSensing, midRangeSensing, closeRangeSensing, 
 						maxLocationError,detectionErrorAverage,locationErrorAverage,
 						robotSpeed, sensorRange,time,navigationDistance);
 			}
 		});
-		
+
 		//reset button handler
 		resetButton.setOnAction(e -> {
 			SetupPage newSetup = new SetupPage();
 			Stage setupStage = new Stage();
 			newSetup.start(setupStage);
 		});
-		
+
 		// Create BorderPane to place GUI items
 		BorderPane borderPane = new BorderPane();
 		borderPane.setLeft(grid);
 		borderPane.setTop(menuBar);
-		
+
 		// Create a scene and place it in the stage
-		Scene summaryScene = new Scene(borderPane, 1000, 700);
+		Scene summaryScene = new Scene(borderPane, 400, 600);
 		summaryStage.setTitle("Summary");
 		summaryStage.setScene(summaryScene);
+		summaryStage.setResizable(false);
+		summaryStage.sizeToScene();
 		summaryStage.show();
 	}
 
-	private void exportFile(File file,double[] dataArray, int numberRefPoints, int numberNavPoints
+	private void exportFile(File file, int numberRefPoints, int numberNavPoints
 			, int sensorAngle, int farRangeSensing, int midRangeSensing, int closeRangeSensing
 			, int maxLocationError, double detectionError, double locationError, int robotSpeed, int sensorRange, double time, double navigationDistance){
 		//writes each line of data into file
@@ -193,11 +195,10 @@ public class SummaryPage extends Application{
 			out.write("Close-Range Sensing Error (%): "+ closeRangeSensing + "\n");
 			out.write("Max. Location Error: "+ maxLocationError + "\n");
 			out.write("Robot Speed: "+ robotSpeed + "\n");
-			out.write("Detection Error Avereage: " + detectionError + "\n");
-			out.write("Location Error Avereage: " + locationError + "\n");
+			out.write("Detection Error Average: " + detectionError + "\n");
+			out.write("Location Error Average: " + locationError + "\n");
 			out.write("Total Navigation Distance: "+navigationDistance+"\n");
 			out.write("Estimated time to complete simulation: " + time + "\n");
-			
 			out.close();
 
 		}catch (Exception error){
@@ -207,30 +208,31 @@ public class SummaryPage extends Application{
 	}
 
 	private void showHelp(){
-		final String summaryHelp = "This page shows the summary of all the data points"
-				+"the robot found during the simulation. The data displayed on this page"
-				+"is automatically saved in the RobotData.txt file on your computer. "
-				+"You can exit the simulation by clicking the exit button in the file"
-				+"option on the menu bar or restart the simulation by clicking the"
-				+"'Reset' button.";
+		final String summaryHelp = "	This page provides data collected during the setup and simulation. "
+				+"To save the data to a text file, press the Save button. "
+				+"For proper formatting, it is recommended that saved data files be opened in WordPad. "
+				+"You may exit the program by clicking the Exit button. "
+				+"You may begin a new simulation by pressing the Reset button.";
 
 		// create text label
 		Label summaryLabel = new Label();
 		summaryLabel.setWrapText(true);
-		summaryLabel.setTextAlignment(TextAlignment.CENTER);
-		summaryLabel.setFont(Font.font("Times New Roman"));
+		summaryLabel.setTextAlignment(TextAlignment.LEFT);
+		summaryLabel.setFont(Font.font("Times New Roman, 14"));
 		summaryLabel.setText(summaryHelp);
 
 		//add Label to Stack Pane
 		StackPane helpPane = new StackPane();
 		helpPane.getChildren().add(summaryLabel);
+		helpPane.setPadding(new Insets(10,10,10,10));
 
 		// create and display pane in a new stage
-		Scene scene = new Scene(helpPane, 550, 100);
+		Scene scene = new Scene(helpPane, 550, 90);
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		stage.setTitle("Navigation Simulation SummaryPage");
+		stage.setTitle("Navigation Simulation Summary");
 		stage.setResizable(false);
+		stage.sizeToScene();
 		stage.show();
 
 	}
