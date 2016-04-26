@@ -224,7 +224,6 @@ public class SummaryPage extends Application{
 	private void showHelp(){
 		final String summaryHelp = "	This page provides data collected during the setup and simulation. "
 				+"To save the data to a text file, press the Save button. "
-				+"For proper formatting, it is recommended that saved data files be opened in WordPad. "
 				+"You may exit the program by clicking the Exit button. "
 				+"You may begin a new simulation by pressing the Reset button.";
 
@@ -241,7 +240,7 @@ public class SummaryPage extends Application{
 		helpPane.setPadding(new Insets(10,10,10,10));
 
 		// create and display pane in a new stage
-		Scene scene = new Scene(helpPane, 550, 90);
+		Scene scene = new Scene(helpPane, 550, 80);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.setTitle("Navigation Simulation Summary");

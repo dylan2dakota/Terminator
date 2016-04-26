@@ -6,7 +6,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -61,9 +60,8 @@ public class SetupPage extends Application {
 		GridPane grid;// Grid Pane for inputs/start button
 		Pane pane;// Pane for Robot
 		MenuBar menuBar;// MenuBar
-		Menu menuFile, menuOptions, menuHelp; // Menus
+		Menu menuFile, menuHelp; // Menus
 		MenuItem miReset, miExit, miAbout; // Menu items
-		CheckMenuItem miRandom; // Check menu items
 		mapWidth = 650; //Width of 2-D environment
 		mapHeight = 700; //Height of 2-D environment
 
@@ -252,20 +250,16 @@ public class SetupPage extends Application {
 		menuBar = new MenuBar();
 		// Create Menus
 		menuFile = new Menu("File");
-		menuOptions = new Menu("Options");
 		menuHelp = new Menu("Help");
 		// Create Menu Items
 		miReset = new MenuItem("Reset");
 		miExit = new MenuItem("Exit");
 		miAbout = new MenuItem("About");
-		miRandom = new CheckMenuItem("Random Path");
-		miRandom.setSelected(true);
 		// Add items to respective menus
 		menuFile.getItems().addAll(miReset, miExit);
-		menuOptions.getItems().addAll(miRandom);
 		menuHelp.getItems().add(miAbout);
 		// Add menus to menu bar
-		menuBar.getMenus().addAll(menuFile, menuOptions, menuHelp);
+		menuBar.getMenus().addAll(menuFile, menuHelp);
 
 		// Event handlers
 		miExit.setOnAction(e -> Platform.exit()); // Exit button
