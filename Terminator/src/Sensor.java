@@ -4,6 +4,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 
+/**
+ * The Sensor class is used to perform the majority of the calculations
+ * within the navigation simulation, such as distance and angle calculations.
+ * 
+ * @author Dylan Cox
+ * @author Rhett Watson
+ * @version 1.0
+ */
 public class Sensor extends Arc {
 
 	public double xCenter;
@@ -20,7 +28,19 @@ public class Sensor extends Arc {
 
 	}
 
-	//Sensor constructor
+	/**
+	 * Sensor constructor
+	 * 
+	 * @param xCenter the x-coordinate of the center of the Sensor arc
+	 * @param yCenter the y-coordinate of the center of the Sensor arc
+	 * @param sensorRange the radius of the sensor arc
+	 * @param sensorAngle the angle between the robot's heading and the boundary of the sensor area
+	 * @param heading the robot's current heading
+	 * @param closeError the percent chance that a point within the close-range Sensor area will not be detected
+	 * @param midError the percent chance that a point within the mid-range Sensor area will not be detected
+	 * @param farError the percent chance that a point within the far-range Sensor area will not be detected
+	 * @param maxLocationError the maximum unit location error that can be encountered at the farthest reach of the sensor range
+	 */
 	public Sensor(double xCenter, double yCenter, int sensorRange, int sensorAngle, double heading, int closeError, int midError, int farError, int maxLocationError) {
 
 		this.xCenter = xCenter;
@@ -45,7 +65,11 @@ public class Sensor extends Arc {
 
 	}
 
-	//Method to form array of points inside sensor area with no error
+	/**
+	 * Specifies the reference points within the Sensor's area with no detection error.
+	 * 
+	 * @return an array containing the Reference Points detected by the sensor.
+	 */
 	public ArrayList<Point> detectPointsNoError() {
 		Point[] refPoints;
 		ArrayList<Point> pointsDetected = new ArrayList<>();
@@ -68,7 +92,11 @@ public class Sensor extends Arc {
 		return pointsDetected;
 	}
 
-	//Method to form array of points inside sensor area
+	/**
+	 * Specifies the reference points within the Sensor's area-includes detection error.
+	 * 
+	 * @return an array containing the Reference Points detected by the sensor.
+	 */
 	public ArrayList<Point> detectPoints() {
 		Random random = new Random();
 		double error;
@@ -105,7 +133,13 @@ public class Sensor extends Arc {
 		return pointsDetected;
 	}
 
-	//Method to return robot's location in map, based off reference point
+	/**
+	 * Determines the robot's current location based off of the 
+	 * coordinates of a reference point.
+	 * 
+	 * @param refPoint the reference point the robot uses to determine its location in the map.
+	 * @return the robot's current location coordinates.
+	 */
 	public double[] locateRobot(Point refPoint) {
 		Random random = new Random();
 		//Reference point coordinates
@@ -127,7 +161,12 @@ public class Sensor extends Arc {
 		return location;
 	}
 
-	//Method to measure the straight-line distance to a point
+	/**
+	 * Measures the straight-line distance from the robot to a point.
+	 * 
+	 * @param refPoint the point to which the distance is being measured.
+	 * @return the distance from the robot to the point.
+	 */
 	public double measureDistance(Point refPoint) {
 		//Point coordinates
 		double yRef = refPoint.getCenterY();
@@ -140,7 +179,12 @@ public class Sensor extends Arc {
 		return distance;
 	}
 
-	//Method to measure the angle between the robot's heading and a point
+	/**
+	 * Measures the angle between the robot's heading and the direction to a point.
+	 * 
+	 * @param refPoint the point to which the angle is being measured.
+	 * @return the angle between the robot and the point.
+	 */
 	public double measureAngle(Point refPoint) {
 		double angle;
 		double turn;

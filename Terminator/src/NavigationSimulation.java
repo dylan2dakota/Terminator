@@ -3,6 +3,13 @@ import java.util.Random;
 
 import javafx.stage.Stage;
 
+/**
+ * The NavigationSimulation class contains the method necessary to 
+ * execute the navigation simulation, which is called from the SetupPage class.
+ * 
+ * @author Dylan Cox
+ * @version 1.0
+ */
 public class NavigationSimulation{
 
 	public NavigationSimulation(){
@@ -25,8 +32,7 @@ public class NavigationSimulation{
 		Point[] navPoints;
 		double[] robotLocation = new double[2];
 		Sensor sensor;
-		int sensorRange = SetupPage.getSensorRange();
-		int sensorAngle = SetupPage.getSensorAngle();
+		int sensorRange = SetupPage.getSensorRange(); int sensorAngle = SetupPage.getSensorAngle();
 		double heading;
 		double navigationDistance;
 		int mapWidth = SetupPage.getMapWidth();
