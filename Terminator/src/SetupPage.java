@@ -19,8 +19,13 @@ import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 
 /**
+ * The SetupPage class initializes and controls all user inputs. It provides input boundary checks and catches. 
+ * It is also responsible for the primary GUI pane where inputs are made to the system and then displays
+ * the inputs in an on-screen generated map.
+ * 
  * @author Team
- *
+ * @version 1.0
+ * @created Feb-2016
  */
 public class SetupPage extends Application {
 
@@ -277,66 +282,103 @@ public class SetupPage extends Application {
 		primaryStage.show();
 	}
 
-	// get user input for number of reference points
+	/**
+	 * Collect the user input for the number of reference points.
+	 * @return number of reference points
+	 */
 	public static int getNumberRefPoints() {
 		numberRefPoints = Integer.valueOf(numberRefPointsInput.getText());
 		return numberRefPoints;
 	}
 
-	// get user input for number of navigation points
+	/**
+	 * Collect the user input for the number of navigation points.
+	 * @return number of navigation points
+	 */
 	public static int getNumberNavPoints() {
 		numberNavPoints = Integer.valueOf(numberNavPointsInput.getText());
 		return numberNavPoints;
 	}
 
-	// get user input for sensor angle
+	/**
+	 * Collect the user input for the angle of the sensor area.
+	 * @return sensor area angle
+	 */
 	public static int getSensorAngle() {
 		sensorAngle = Integer.valueOf(sensorAngleInput.getText());
 		return sensorAngle;
 	}
 
-	// get user input for sensor range
+	/**
+	 * Collect the user input for the range of the sensor area.
+	 * @return sensor area range
+	 */
 	public static int getSensorRange() {
 		sensorRange = Integer.valueOf(sensorRangeInput.getText());
 		return sensorRange;
 	}
 
-	// get user input for far-range sensing
+	/**
+	 * Collect the user input for the far range sensor error.
+	 * @return far range error
+	 */
 	static int getFarRangeSensing() {
 		farRangeSensing = Integer.valueOf(farRangeSensingInput.getText());
 		return farRangeSensing;
 	}
 
-	// get user input for mid-range sensing
+	/**
+	 * Collect the user input for the medium range sensor error.
+	 * @return medium range error
+	 */
 	static int getMidRangeSensing() {
 		midRangeSensing = Integer.valueOf(midRangeSensingInput.getText());
 		return midRangeSensing;
 	}
 
-	// get user input for close-range sensing
+	/**
+	 * Collect the user input for the close range sensor error.
+	 * @return close range error
+	 */
 	static int getCloseRangeSensing() {
 		closeRangeSensing = Integer.valueOf(closeRangeSensingInput.getText());
 		return closeRangeSensing;
 	}
 
-	// get user input for max location error
+	/**
+	 * Collect the user input for the maximum robot location error.
+	 * @return maximum location error
+	 */
 	static int getMaxLocationError() {
 		maxLocationError = Integer.valueOf(maxLocationErrorInput.getText());
 		return maxLocationError;
 	}
+	
+	/**
+	 * Collect the user input for the speed of the robot.
+	 * @return robot speed
+	 */
 	static int getRobotSpeed() {
 		robotSpeed = Integer.valueOf(robotSpeedInput.getText());
 		return robotSpeed;
 	}
 
-	// check user inputs against boundaries
+	/**
+	 * Checks all user inputs against defined input boundaries.
+	 * @param input value of any user input
+	 * @param lowerBound the lower limit of accepted inputs
+	 * @param upperBound the upper limit of accepted inputs
+	 * @return boolean true or false is the input passes or violates boundaries
+	 */
 	public static boolean checkValidNumber(Integer input, double lowerBound, double upperBound) {
 		//Make sure number is within boundary limits
 		if (input >= lowerBound && input <= upperBound) {
 			return true;
 		} else{ return false; }
 	}
-	//Message box is displayed if a boundary is violated
+	/**
+	 * Displays an error message in a pop-up menu if any input boundary is violated.
+	 */
 	public void boundaryError(){
 
 		//Create Label
@@ -358,7 +400,9 @@ public class SetupPage extends Application {
 
 	}
 
-	// help menu for user
+	/**
+	 * Displays a help message in a pop-up menu if the help menu item is chosen.
+	 */
 	private void showAbout() {
 
 		final String helpText = "	The purpose of this program is to observe the effects of various system parameters "
@@ -405,18 +449,38 @@ public class SetupPage extends Application {
 		stage.show();
 	}
 
+	/**
+	 * Returns the navigation points as an array.
+	 * 
+	 * @return point array of navigation points
+	 */
 	public static Point[] getNavPoints() {
 		return navigationPoints;
 	}
 
+	/**
+	 * Returns the reference points as an array.
+	 * 
+	 * @return point array of reference points
+	 */
 	public static Point[] getRefPoints() {
 		return referencePoints;
 	}
 
+	/**
+	 * Returns the width of the preview area.
+	 * 
+	 * @return preview area width
+	 */
 	public static int getMapWidth() {
 		return mapWidth;
 	}
 
+	/**
+	 * Returns the height of the preview area.
+	 * 
+	 * @return preview area height
+	 */
 	public static int getMapHeight() {
 		return mapHeight;
 	}
