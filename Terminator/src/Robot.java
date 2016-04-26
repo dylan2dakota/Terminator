@@ -19,6 +19,7 @@ public class Robot extends ImageView {
 	 * @param width the witch of the robot image
 	 * @param xCoord the x coordinate of the image
 	 * @param yCoord the y coordination of the image
+	 * @URL  https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Robot_icon.svg/2000px-Robot_icon.svg.png
 	 */
 	public Robot(double width, double xCoord, double yCoord) {
 		// Load the image
