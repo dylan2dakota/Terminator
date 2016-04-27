@@ -137,18 +137,29 @@ public class NavigationSimulation{
 		Stage summaryStage = new Stage();
 		summaryPage.start(summaryStage);
 	}//End navigate() method
-	
+	/**
+	 * Generate 
+	 * @return sumDistance sum of the distance that the robot travels in the simulation
+	 */
 	//Method to collect total navigation distance
 	public static double getNavigationDistance() {
 		return sumDistance;
 	}
 	
+	/**
+	 * this calls the getaveragedetectionerror method
+	 * @return detectionErrorAverage Average of all sensor errors for all the points found
+	 */
 	//Method to collect average detection error
 	public static double getAverageDetectionError() {
 		return detectionErrorAverage;
 	}
 	
 	//Method to collect average location error
+	/**
+	 * this calls the getaveragelocation error method 
+	 * @return locationErrorAverage
+	 */
 	public static double getAverageLocationError() {
 		return locationErrorAverage;
 	}

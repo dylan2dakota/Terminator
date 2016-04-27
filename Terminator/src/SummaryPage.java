@@ -24,7 +24,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 /**
- * @author Owner
+ * @author Brandon
  * @version 1.0
  * @created 29-Feb-2016 12:35:52 PM
  */

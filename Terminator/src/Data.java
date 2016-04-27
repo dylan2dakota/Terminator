@@ -2,7 +2,7 @@ import java.util.ArrayList;
 /**
  * This class calculates the total navigation distance the robot travels during the simulation.
  * this class calculates the average error percentage of the sensor 
- * @author Brandon
+ * @author dakodah Davis
  * @version 1.0
  */
 public class Data {

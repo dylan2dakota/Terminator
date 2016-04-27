@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 /**
  * this class creates a robot image
- * @author Brandon
+ * @author Dylan Cox Dakodah Davis
  * @version 1.0
  */
 public class Robot extends ImageView {

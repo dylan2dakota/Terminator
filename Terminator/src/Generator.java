@@ -23,6 +23,8 @@ public class Generator {
 	}
 
 	/**
+	 * this method generates a specified number of points at random locations dependent on the user input
+	 * for number of navigation points
 	 * @param user specified density
 	 * @return array of points 
 	 */

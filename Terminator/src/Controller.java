@@ -10,20 +10,15 @@ public class Controller {
 	public Controller(){
 
 	}
-/*
-	public int rotateRobot(int startx, int starty, int finalx, int finaly){
-		int angle = 0;
-		
-		return angle;
-
-	}
-
-	public void translateRobot(int startx, int starty, int finalx, int finaly){
-		int newx;
-		int newy;
-
-	}
-	*/
+/**
+ * This method controls the location of the robot. the robot will move based on the location of the reference 
+ * points and the navigation point.
+ * @param oldLocation last location of robot
+ * @param heading direction the robot is facing
+ * @param turnAngle the angle the robot has to turn to face the point it is naviaging to
+ * @param distance how far away the navigation point is from the robot
+ * @return new location of the robot
+ */
 	
 	public static double[] move(double[] oldLocation, double heading, double turnAngle, double distance) {
 		double translateAngle = heading + turnAngle;
