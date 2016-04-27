@@ -1,3 +1,7 @@
+
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+
 /**
  * The Point class is used to create a point in the form of a circle that can displayed in the preview area.
  * The points contain a unique coordinate location.
@@ -6,9 +10,6 @@
  * @author Rhett Watson
  * @version 1.0
  */
-
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 public class Point extends Circle {
 
