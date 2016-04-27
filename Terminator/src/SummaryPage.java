@@ -24,6 +24,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 /**
+ * ThE SummaryPage class tracks and displays all the data in the simulation. 
+ * It shows the user inputs and the average sensor error, navigation error and total navigation distance
  * @author Brandon
  * @version 1.0
  * @created 29-Feb-2016 12:35:52 PM

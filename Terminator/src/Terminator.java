@@ -1,6 +1,10 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+/**
+ * This Class contains the main method to make the simulation run.
+ * @author Brandon
+ *
+ */
 public class Terminator extends Application{
 /**
  * this contains the start method to make the program run

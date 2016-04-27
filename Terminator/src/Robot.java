@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * this class creates a robot image
+ * This class gets a robot image and puts it on the GUI
  * @author Dylan Cox Dakodah Davis
  * @version 1.0
  */

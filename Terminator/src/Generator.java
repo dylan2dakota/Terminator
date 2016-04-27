@@ -3,6 +3,7 @@
 import java.util.Random;
 
 /**
+ * This class generates points at random locations and puts them on the GUI
  * @author Dylan and Dakodah
  * @version 1.0
  * @created 29-Feb-2016 12:35:51 PM
