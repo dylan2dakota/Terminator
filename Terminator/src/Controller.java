@@ -1,7 +1,7 @@
 
 
 /**
- * this class tracks and moves the robots location based on the navigation point
+ * This class tracks and moves the robots location based on the navigation point
  * @author Dakodah
  * @version 1.0
  * @created 29-Feb-2016 12:35:51 PM

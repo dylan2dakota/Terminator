@@ -40,7 +40,9 @@ public class SummaryPage extends Application{
 	public SummaryPage(){
 
 	}
-
+/**
+ * This creates a GUI for the summary page.
+ */
 	@Override
 	public void start(Stage summaryStage) {
 		//Collect user inputs from SetupPage
@@ -175,7 +177,24 @@ public class SummaryPage extends Application{
 		summaryStage.sizeToScene();
 		summaryStage.show();
 	}
-
+/**
+ * This method creates a file and writes the summary of all the data collected during the simulation into
+ * that file
+ * @param file creates file to save to
+ * @param numberRefPoints User input from setup page
+ * @param numberNavPoints User input from setup page
+ * @param sensorAngle  User input from setup page
+ * @param farRangeSensing User input from setup page
+ * @param midRangeSensing User input from setup page
+ * @param closeRangeSensing User input from setup page
+ * @param maxLocationError User input from setup page
+ * @param detectionError User input from setup page
+ * @param locationError User input from setup page
+ * @param robotSpeed User input from setup page
+ * @param sensorRange User input from setup page
+ * @param time User input from setup page
+ * @param navigationDistance Distance robot moves from starting location to the reference point 
+ */
 	private void exportFile(File file, int numberRefPoints, int numberNavPoints
 			, int sensorAngle, int farRangeSensing, int midRangeSensing, int closeRangeSensing
 			, int maxLocationError, double detectionError, double locationError, int robotSpeed, int sensorRange, double time, double navigationDistance){
@@ -223,7 +242,11 @@ public class SummaryPage extends Application{
 
 	}
 
+
 	private void showHelp(){
+/**
+ * This creates a help menu for users to read in the menu bar.
+ */
 		final String summaryHelp = "	This page provides data collected during the setup and simulation. "
 				+"To save the data to a text file, press the Save button. "
 				+"You may exit the program by clicking the Exit button. "
